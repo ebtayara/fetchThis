@@ -20,6 +20,7 @@ Phase 0:
     -[x] npm install morgan
     -[x] npm install sequelize-cli@^5.0.0 --save-dev
     -[x] #!/usr/bin/env node     and then   bin/www  but it didn't work so NPM START
+    -[] npm install bcryptjs
 -[x] touch.env
     PORT=8080
     DB_USERNAME=fetchThisAdmin
@@ -54,6 +55,7 @@ npx sequelize-cli model:generate --name Task --attributes name:string,descriptio
 
 
 ### Phase 2: Configure Express to use sessions ###
+-[x] touch auth.js
 -[x] npm install express-session
 -[x] app. js > const session = require('express-session');
 -[x] generate a UUID to have a more secure sessionSecret variable value.
@@ -61,7 +63,7 @@ npx sequelize-cli model:generate --name Task --attributes name:string,descriptio
 -[x] set a SESSION_SECRET environment variable in your .env file.
     SESSION_SECRET=fetchThisSecret
 -[x] update .env
--[] Add a key of sessionSecret connected to the process.env.SESSION_SECRET in your ./config/index.js
+-[x] Add a key of sessionSecret connected to the process.env.SESSION_SECRET in your ./config/index.js
 ./config/index.js
 ```
 module.exports = {
@@ -77,6 +79,48 @@ module.exports = {
 };
 ```
 
--[] app module import the sessionSecret in your ./config require statement
+-[x] app module import the sessionSecret in your ./config require statement
     const session = require('express-session');
     const { sessionSecret } = require('./config');
+
+-[x] touch utils.js
+
+Phase: Creating a user login
+
+router.get('/login', csrfProtection, (req, res) => {
+  res.render('userLogin', {
+    title: 'Login',
+    csrfToken: req.csrfToken(),
+  });
+});
+
+const loginValidators = [
+  check('email')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Email Address'),
+  check('hashedPassword')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Password'),
+];
+
+router.post('/login', csrfProtection
+  asyncHandler(async (req, res) => {
+    const {
+      email,
+      hashedPassword,
+    } = req.body;
+
+    let errors = [];
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+      // TODO Attempt to login the user.
+    } else {
+      errors = validatorErrors.array().map((error) => error.msg);
+    }
+    res.render('userLogin', {
+      title: 'Login',
+      email,
+      csrfToken: req.csrfToken(),
+    });
+  }));

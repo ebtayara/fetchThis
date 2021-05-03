@@ -8,11 +8,14 @@
     "start:production": "node ./bin/www"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "connect-session-sequelize": "^7.0.4",
     "cookie-parser": "~1.4.4",
+    "csurf": "^1.11.0",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-session": "^1.17.1",
+    "express-validator": "^6.10.1",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "per-env": "^1.0.2",
