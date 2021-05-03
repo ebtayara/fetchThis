@@ -1,0 +1,53 @@
+Phase: git project flow
+    git checkout -b <<branch-name>>
+    git checkout main
+    git pull
+    git checkout <<branch-name>>
+    git merge main
+
+Phase 0:
+-[x] Install the project's dependencies (npm install); and
+    -[x] npm install
+    -[x] npm uninstall pg
+    -[x] npm install pg
+    -[x] npm install express@^4.0.0 pug@^2.0.0
+    -[x] npm install nodemon@^2.0.0 --save-dev
+    -[x] npm install dotenv dotenv-cli --save-dev
+    -[x] npm install per-env
+    -[x] npm install csurf@^1.0.0
+    -[x] npm install cookie-parser@^1.0.0
+    -[x] npm install express-validator@^6.0.0
+    -[x] npm install morgan
+    -[x] npm install sequelize-cli@^5.0.0 --save-dev
+    -[x] #!/usr/bin/env node     and then   bin/www  but it didn't work so NPM START
+-[x] touch.env
+    PORT=8080
+    DB_USERNAME=fetchThisAdmin
+    DB_PASSWORD=fetchThisPassword
+    DB_DATABASE=fetchThisDb
+    DB_HOST=localhost
+    SESSION_SECRET=fetchThisSecret
+-[x] Add an .env file containing the variables from the .env.example file;
+    touch .env
+-[x] Create the database and limited access database user;
+    CREATE USER fetchThisAdmin WITH PASSWORD 'fetchThisPassword' CREATEDB;
+-[x] Use the Sequelize CLI to apply the provided database migrations and seeder.
+    npx dotenv sequelize-cli db:create
+
+-[] Now you can start (npm start) and test the application!
+    npm start
+
+        npx dotenv sequelize db:seed:undo:all
+        npx dotenv sequelize db:migrate:undo:all
+        npx dotenv sequelize db:drop amusement_park_tracker
+        npx dotenv sequelize db:migrate
+        npx dotenv sequelize db:seed:all
+-[]
+npx sequelize-cli model:generate --name Task --attributes name:string,description:string,userId:integer,listId:integer,completed:boolean
+npx sequelize-cli model:generate --name Users --attributes username:string,hashedPassword:string,email:string
+npx sequelize-cli model:generate --name List --attributes name:string,userId:integer
+
+
+-[] npx dotenv sequelize db:migrate
+
+### Phase 2: Configure Express to use sessions ###
