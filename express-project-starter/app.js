@@ -25,7 +25,7 @@ const store = new SequelizeStore({ db: sequelize });
 
 app.use(
   session({
-    secret: 'superSecret',
+    secret: 'fetchThisSecret',
     store,
     saveUninitialized: false,
     resave: false,
@@ -54,6 +54,5 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-const randomVar = 'hello'
 
 module.exports = app;
