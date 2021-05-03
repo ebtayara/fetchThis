@@ -1,0 +1,82 @@
+Phase: git project flow
+    git checkout -b <<branch-name>>
+    git checkout main
+    git pull
+    git checkout <<branch-name>>
+    git merge main
+
+Phase 0:
+-[x] Install the project's dependencies (npm install); and
+    -[x] npm install
+    -[x] npm uninstall pg
+    -[x] npm install pg
+    -[x] npm install express@^4.0.0 pug@^2.0.0
+    -[x] npm install nodemon@^2.0.0 --save-dev
+    -[x] npm install dotenv dotenv-cli --save-dev
+    -[x] npm install per-env
+    -[x] npm install csurf@^1.0.0
+    -[x] npm install cookie-parser@^1.0.0
+    -[x] npm install express-validator@^6.0.0
+    -[x] npm install morgan
+    -[x] npm install sequelize-cli@^5.0.0 --save-dev
+    -[x] #!/usr/bin/env node     and then   bin/www  but it didn't work so NPM START
+-[x] touch.env
+    PORT=8080
+    DB_USERNAME=fetchThisAdmin
+    DB_PASSWORD=fetchThisPassword
+    DB_DATABASE=fetchThisDb
+    DB_HOST=localhost
+    SESSION_SECRET=fetchThisSecret
+-[x] Add an .env file containing the variables from the .env.example file;
+    touch .env
+-[x] Create the database and limited access database user;
+    CREATE USER fetchThisAdmin WITH PASSWORD 'fetchThisPassword' CREATEDB;
+-[x] Use the Sequelize CLI to apply the provided database migrations and seeder.
+    npx dotenv sequelize-cli db:create
+
+-[x] Now you can start (npm start) and test the application!
+    npm start
+
+        npx dotenv sequelize db:seed:undo:all
+        npx dotenv sequelize db:migrate:undo:all
+        npx dotenv sequelize db:drop fetchThisDb
+        npx dotenv sequelize db:migrate
+        npx dotenv sequelize db:seed:all
+-[x]
+npx sequelize-cli model:generate --name User --attributes username:string,hashedPassword:string,email:string
+npx sequelize-cli model:generate --name List --attributes name:string,userId:integer
+npx sequelize-cli model:generate --name Task --attributes name:string,description:string,userId:integer,listId:integer,completed:boolean
+
+-[x] npx dotenv sequelize-cli db:migrate
+-[x] npx sequelize-cli seed:generate --name fetchThisUserData
+-[x] npx sequelize-cli seed:generate --name fetchThisTaskData
+-[x] npx sequelize-cli seed:generate --name fetchThisListData
+
+
+### Phase 2: Configure Express to use sessions ###
+-[x] npm install express-session
+-[x] app. js > const session = require('express-session');
+-[x] generate a UUID to have a more secure sessionSecret variable value.
+    `fetchThisSecret`
+-[x] set a SESSION_SECRET environment variable in your .env file.
+    SESSION_SECRET=fetchThisSecret
+-[x] update .env
+-[] Add a key of sessionSecret connected to the process.env.SESSION_SECRET in your ./config/index.js
+./config/index.js
+```
+module.exports = {
+  environment: process.env.NODE_ENV || 'development',
+  port: process.env.PORT || 8080,
+  sessionSecret: process.env.SESSION_SECRET,
+  db: {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    host: process.env.DB_HOST,
+  },
+};
+```
+
+-[] app module import the sessionSecret in your ./config require statement
+    const session = require('express-session');
+    const { sessionSecret } = require('./config');
