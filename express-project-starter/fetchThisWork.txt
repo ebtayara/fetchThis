@@ -402,17 +402,14 @@ html
           //- unordered list correctly positioned on the
           //- right side of the navbar.
         if locals.authenticated
-          span(class='navbar-text px-4') Welcome #{user.firstName}!
-          form(class='form-inline pr-4' action='/user/logout' method='post')
+          span(class='navbar-text px-4') Welcome #{user.userName}!
+          form(class='form-inline pr-4' action='/users/logout' method='post')
             button(class='btn btn-sm btn-warning' type='submit') Logout
         else
           span(class='navbar-text px-4')
-            a(class='btn btn-sm btn-dark mr-2' href='/user/login') Login
-            a(class='btn btn-sm btn-dark' href='/user/register') Register
-    .container
-      h2(class='py-4') #{title}
-      block content
-    script(src='https://code.jquery.com/jquery-3.4.1.slim.min.js' integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n' crossorigin='anonymous') script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js' integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo' crossorigin='anonymous') script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js' integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6' crossorigin='anonymous')
+            a(class='btn btn-sm btn-dark mr-2' href='/users/login') Login
+            a(class='btn btn-sm btn-dark' href='/users/signUp') Sign Up
+            block content
 ```
 Phase 8: Implement user logout
 
