@@ -30,16 +30,16 @@ router.post('/login', csrfProtection, loginValidators,
       email,
       hashedPassword,
     } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     let errors = [];
     const validatorErrors = validationResult(req);
     if (validatorErrors.isEmpty()) {
-      console.log(req.body, 'INSIDE IF BLOCK');
+      // console.log(req.body, 'INSIDE IF BLOCK');
       // grabbing the user by email
       const user = await db.User.findOne({ where: { email } });
 
       if (user !== null) {
-        console.log('User is not NULL')
+        // console.log('User is not NULL')
         // user exists compare password
         // to the provided password.
         const passwordMatch = await bcrypt.compare(hashedPassword, user.hashedPassword.toString());
@@ -47,7 +47,7 @@ router.post('/login', csrfProtection, loginValidators,
 
         // console.log(passwordMatch)
         if (passwordMatch) {
-          console.log('password match')
+          // console.log('password match')
           // If the password hashes match, then login the user
           // and redirect them to the default route.
           loginUser(req, res, user);
@@ -58,7 +58,7 @@ router.post('/login', csrfProtection, loginValidators,
       // Otherwise display an error message to the user.
       errors.push('Login failed for the provided email address and password');
     } else {
-      console.log(req.body,'INSIDE ELSE BLOCK');
+      // console.log(req.body,'INSIDE ELSE BLOCK');
       errors = validatorErrors.array().map((error) => error.msg);
     }
 
@@ -81,30 +81,30 @@ router.get('/signUp', csrfProtection, (req, res) => {
 });
 
 const userValidators = [
-  check('email')
-    .exists({ checkFalsy: true })
-    .withMessage('Please provide a value for Email Address')
-    .isLength({ max: 255 })
-    .withMessage('Email Address must not be more than 255 characters long')
-    .isEmail()
-    .withMessage('Email Address is not a valid email')
-    .custom((value) => {
-      return db.User.findOne({ where: { emailAddress: value } })
-        .then((user) => {
-          if (user) {
-            return Promise.reject('The provided Email Address is already in use by another account');
-          }
-        });
-    }),
-  check('hashedPassword')
-    .exists({ checkFalsy: true })
-    .withMessage('Please provide a value for Password')
-    .isLength({ max: 50 })
-    .withMessage('Password must not be more than 50 characters long')
-    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
-    .withMessage('Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")')
-    .isLength({ min: 8 })
-    .withMessage('The password should be at least 8 characters long.'),
+  // check('email')
+  //   .exists({ checkFalsy: true })
+  //   .withMessage('Please provide a value for Email Address')
+  //   .isLength({ max: 255 })
+  //   .withMessage('Email Address must not be more than 255 characters long')
+  //   .isEmail()
+  //   .withMessage('Email Address is not a valid email')
+  //   .custom((value) => {
+  //     return db.User.findOne({ where: { email: value } })
+  //       .then((user) => {
+  //         if (user) {
+  //           return Promise.reject('The provided Email Address is already in use by another account');
+  //         }
+  //       });
+  //   }),
+  // check('hashedPassword')
+  //   .exists({ checkFalsy: true })
+  //   .withMessage('Please provide a value for Password')
+  //   .isLength({ max: 50 })
+  //   .withMessage('Password must not be more than 50 characters long')
+  //   .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
+  //   .withMessage('Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")')
+  //   .isLength({ min: 8 })
+  //   .withMessage('The password should be at least 8 characters long.'),
 ];
 
 
@@ -115,21 +115,24 @@ router.post('/signUp', csrfProtection, userValidators,
       email,
       password,
     } = req.body;
-    console.log(req.body)
+    console.log(req.body, 'req.body' )
     const user = db.User.build({
       userName,
       email
     });
-
+    console.log(user);
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
+      console.log(req.body, 'INSIDE IF BLOCK');
       const hashedPassword = await bcrypt.hash(password, 10);
       user.hashedPassword = hashedPassword;
       await user.save();
       loginUser(req, res, user);
       res.redirect('/');
     } else {
+      console.log(validatorErrors,'validatorErrors')
+      console.log(req.body, 'INSIDE ELSE BLOCK');
       const errors = validatorErrors.array().map((error) => error.msg);
       console.log(errors);
       res.render('signUp', {
@@ -141,9 +144,9 @@ router.post('/signUp', csrfProtection, userValidators,
     }
   }));
 
-  router.post('/users/logout', (req, res) => {
+  router.post('/logout', (req, res) => {
   logoutUser(req, res);
-  res.redirect('/users/login');
+  res.redirect('/login');
 });
 
 module.exports = router;
