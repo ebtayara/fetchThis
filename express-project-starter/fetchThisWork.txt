@@ -1,0 +1,444 @@
+
+Phase: git project flow
+    git checkout -b <<branch-name>>
+    git checkout main
+    git pull
+    git checkout <<branch-name>>
+    git merge main
+
+
+git status
+git add .
+git commit -m ' updated routes for sign up'
+git checkout main
+git pull
+git checkout fetchThisSummary
+git merge main
+git checkout main
+git merge fetchThisSummary
+
+
+
+Phase 0:
+-[x] Install the project's dependencies (npm install); and
+    -[x] npm install
+    -[x] npm uninstall pg
+    -[x] npm install pg
+    -[x] npm install express@^4.0.0 pug@^2.0.0
+    -[x] npm install nodemon@^2.0.0 --save-dev
+    -[x] npm install dotenv dotenv-cli --save-dev
+    -[x] npm install per-env
+    -[x] npm install csurf@^1.0.0
+    -[x] npm install cookie-parser@^1.0.0
+    -[x] npm install express-validator@^6.0.0
+    -[x] npm install morgan
+    -[x] npm install sequelize-cli@^5.0.0 --save-dev
+    -[x] #!/usr/bin/env node     and then   bin/www  but it didn't work so NPM START
+    -[x] npm install bcryptjs
+-[x] touch.env
+PORT=8081
+DB_USERNAME=fetchThisApp
+DB_PASSWORD=fetchThisPassword
+DB_DATABASE=fetchThisDatabase
+DB_HOST=localhost
+SESSION_SECRET=fetchThisSecret
+-[x] Add an .env file containing the variables from the .env.example file;
+    touch .env
+-[x] Create the database and limited access database user;
+    CREATE USER fetchThisApp WITH PASSWORD 'fetchThisPassword' CREATEDB;
+-[x] Use the Sequelize CLI to apply the provided database migrations and seeder.
+    npx dotenv sequelize-cli db:create
+
+-[x] Now you can start (npm start) and test the application!
+    npm start
+
+        npx dotenv sequelize db:seed:undo:all
+        npx dotenv sequelize db:migrate:undo:all
+        npx dotenv sequelize db:drop fetchThisDb
+        npx dotenv sequelize db:migrate
+        npx dotenv sequelize db:seed:all
+-[x]
+npx sequelize-cli model:generate --name User --attributes username:string,hashedPassword:string,email:string
+npx sequelize-cli model:generate --name List --attributes name:string,userId:integer
+npx sequelize-cli model:generate --name Task --attributes name:string,description:string,userId:integer,listId:integer,completed:boolean
+
+-[x] npx dotenv sequelize-cli db:migrate
+-[x] npx sequelize-cli seed:generate --name fetchThisUserData
+-[x] npx sequelize-cli seed:generate --name fetchThisTaskData
+-[x] npx sequelize-cli seed:generate --name fetchThisListData
+
+
+### Phase 2: Configure Express to use sessions ###
+-[x] touch auth.js
+-[x] npm install express-session
+-[x] app. js > const session = require('express-session');
+-[x] generate a UUID to have a more secure sessionSecret variable value.
+    `fetchThisSecret`
+-[x] set a SESSION_SECRET environment variable in your .env file.
+    SESSION_SECRET=fetchThisSecret
+-[x] update .env
+-[x] Add a key of sessionSecret connected to the process.env.SESSION_SECRET in your ./config/index.js
+./config/index.js
+```
+module.exports = {
+  environment: process.env.NODE_ENV || 'development',
+  port: process.env.PORT || 8080,
+  sessionSecret: process.env.SESSION_SECRET,
+  db: {
+    username: process.env.DB_USERNAME,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE,
+    host: process.env.DB_HOST,
+  },
+};
+```
+
+-[x] app module import the sessionSecret in your ./config require statement
+    const session = require('express-session');
+    const { sessionSecret } = require('./config');
+
+-[x] touch utils.js
+
+Phase3: Creating a user login
+
+router.get('/login', csrfProtection, (req, res) => {
+  res.render('userLogin', {
+    title: 'Login',
+    csrfToken: req.csrfToken(),
+  });
+});
+
+const loginValidators = [
+  check('email')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Email Address'),
+  check('hashedPassword')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Password'),
+];
+
+router.post('/login', csrfProtection
+  asyncHandler(async (req, res) => {
+    const {
+      email,
+      hashedPassword,
+    } = req.body;
+
+    let errors = [];
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+      // TODO Attempt to login the user.
+    } else {
+      errors = validatorErrors.array().map((error) => error.msg);
+    }
+    res.render('userLogin', {
+      title: 'Login',
+      email,
+      csrfToken: req.csrfToken(),
+    });
+  }));
+
+
+
+Phase4: Creating a user register
+Persistance User is being stored in a cookie
+Restoring User is stored in Database
+-[x] We are starting at:
+```
+const loginValidators = [
+  check('email')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Email Address'),
+  check('hashedPassword')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Password'),
+];
+
+router.post('/login', csrfProtection, loginValidators,
+  asyncHandler(async (req, res) => {
+    const {
+      email,
+      hashedPassword,
+    } = req.body;
+
+    let errors = [];
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+      // grabbing the user by email
+      const user = await db.User.findOne({ where: { email } });
+
+      if (user !== null) {
+        // user exists compare password
+        // to the provided password.
+        const passwordMatch = await bcrypt.compare(hashedPassword, user.hashedPassword.toString());
+
+        if (passwordMatch) {
+          // If the password hashes match, then login the user
+          // and redirect them to the default route.
+          loginUser(req, res, user);
+          return res.redirect('/');
+        }
+      }
+
+      // Otherwise display an error message to the user.
+      errors.push('Login failed for the provided email address and password');
+    } else {
+      errors = validatorErrors.array().map((error) => error.msg);
+    }
+
+    res.render('userLogin', {
+      title: 'Login',
+      email,
+      errors,
+      csrfToken: req.csrfToken(),
+    });
+  }));
+
+router.get('/signup', csrfProtection, (req, res) => {
+  const user = db.User.build();
+  res.render('signUp', {
+    title: 'Register',
+    user,
+    csrfToken: req.csrfToken(),
+  });
+});
+
+const userValidators = [
+  check('emailAddress')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Email Address')
+    .isLength({ max: 255 })
+    .withMessage('Email Address must not be more than 255 characters long')
+    .isEmail()
+    .withMessage('Email Address is not a valid email')
+    .custom((value) => {
+      return db.User.findOne({ where: { emailAddress: value } })
+        .then((user) => {
+          if (user) {
+            return Promise.reject('The provided Email Address is already in use by another account');
+          }
+        });
+    }),
+  check('password')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Password')
+    .isLength({ max: 50 })
+    .withMessage('Password must not be more than 50 characters long')
+    .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])/, 'g')
+    .withMessage('Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")')
+    .isLength({ min: 8 })
+    .withMessage('The password should be at least 8 characters long.'),
+  check('confirmPassword')
+    .exists({ checkFalsy: true })
+    .withMessage('Please provide a value for Confirm Password')
+    .isLength({ max: 50 })
+    .withMessage('Confirm Password must not be more than 50 characters long')
+    .custom((value, { req }) => {
+      if (value !== req.body.password) {
+        throw new Error('Confirm Password does not match Password');
+      }
+      return true;
+    }),
+];
+
+router.post('/signup', csrfProtection, userValidators,
+  asyncHandler(async (req, res) => {
+    const {
+      email,
+      hashedPassword,
+    } = req.body;
+
+    const user = db.User.build({
+      email,
+      hashedPassword
+    });
+
+    const validatorErrors = validationResult(req);
+
+    if (validatorErrors.isEmpty()) {
+      const encryptedPassword = await bcrypt.hash(hashedPassword, 10);
+      user.encryptedPassword = encryptedPassword;
+      await user.save();
+      loginUser(req, res, user);
+      res.redirect('/');
+    } else {
+      const errors = validatorErrors.array().map((error) => error.msg);
+      res.render('userSignup', {
+        title: 'Sign up',
+        user,
+        errors,
+        csrfToken: req.csrfToken(),
+      });
+    }
+  }));
+
+```
+
+-[] touch views/signUp.pug
+```
+extends layout.pug
+
+block content
+  if error
+    div(class='alert alert-danger' role='alert')
+      p The following error(s) occurred:
+      pre= JSON.stringify(error, null, 2)
+  a(href='/users/login') Login
+  form(action='/signUp' method='post')
+    label Sign up for free.
+    input(type='hidden' name='_csrf' value=csrfToken)
+    div(class='form-group')
+      label(for='firstName') First Name
+      input(type='text' id='title' name='firstName' value=user.firstName class='form-control')
+    div(class='form-group')
+      label(for='lastName') Last Name
+      input(type='text' id='lastName' name='lastName' value=user.lastName class='form-control')
+    div(class='form-group')
+      label(for='email') Email
+      input(type='text' id='email' name='email' value=user.email class='form-control')
+    div(class='form-group')
+      label(for='userName') Username
+      input(type='text' id='userName' name='userName' value=user.userName class='form-control')
+    div(class='form-group')
+      label(for='password') Password
+      input(type='text' id='password' name='password' value=user.password class='form-control')
+    div(class='submitButton')
+      button(type='submit' class='submitButton') Sign Up!
+```
+
+Phase 5: Persist user login state
+-[] touch auth.js
+```
+
+const loginUser = (req, res, user) => {
+  req.session.auth = {
+    userId: user.id,
+  };
+};
+
+module.exports = {
+  loginUser,
+};
+```
+-[x] Update the ./routes/user module to import the loginUser() function from the auth module.
+    const { loginUser } = require('../auth');
+-[x] Then within the POST /user/login route handler add a call to the loginUser() function just before redirecting the user to the default route if the password matched.
+-[x] After a new user has registered in the POST /user/register route handler,
+    add a call to the loginUser() function after saving the user to the database but before redirecting then to the default route.
+
+```
+const validatorErrors = validationResult(req);
+    if (passwordMatch) {
+        // If the password hashes match, then login the user
+        // and redirect them to the default route.
+        loginUser(req, res, user);
+        return res.redirect('/');
+    }
+    if (validatorErrors.isEmpty()) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        user.hashedPassword = hashedPassword;
+        await user.save();
+        loginUser(req, res, user);
+        res.redirect('/');
+    } else {
+      errors = validatorErrors.array().map((error) => error.msg);
+    }
+```
+Phase 6: Restore the authenticated user from session
+
+-[] auth module, define a middleware function named restoreUser() to retrieve the user's information from the database if they're authenticated.
+```
+const restoreUser = async (req, res, next) => {
+  // Log the session object to the console
+  // to assist with debugging.
+  console.log(req.session);
+
+  if (req.session.auth) {
+    const { userId } = req.session.auth;
+
+    try {
+      const user = await db.User.findByPk(userId);
+
+      if (user) {
+        res.locals.authenticated = true;
+        res.locals.user = user;
+        next();
+      }
+    } catch (err) {
+      res.locals.authenticated = false;
+      next(err);
+    }
+  } else {
+    res.locals.authenticated = false;
+    next();
+  }
+};
+
+module.exports = {
+  loginUser,
+  restoreUser,
+};
+```
+
+Phase 7: Display the user's login state
+-[] update your ./views/layout.pug template to use the locals.authenticated property to determine if the current user is logged in or not
+```
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+    title fetchThis!
+  body
+    nav(class='navbar navbar-expand-lg navbar-dark bg-primary')
+      a(class='navbar-brand' href='/') fetchThis!
+      button(class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarText' aria-controls='navbarText' aria-expanded='false' aria-label='Toggle navigation')
+        span(class='navbar-toggler-icon')
+      div(class='collapse navbar-collapse' id='navbarText')
+        ul(class='navbar-nav mr-auto')
+          //- Empty menu keeps the content that follows the
+          //- unordered list correctly positioned on the
+          //- right side of the navbar.
+        if locals.authenticated
+          span(class='navbar-text px-4') Welcome #{user.firstName}!
+          form(class='form-inline pr-4' action='/user/logout' method='post')
+            button(class='btn btn-sm btn-warning' type='submit') Logout
+        else
+          span(class='navbar-text px-4')
+            a(class='btn btn-sm btn-dark mr-2' href='/user/login') Login
+            a(class='btn btn-sm btn-dark' href='/user/register') Register
+    .container
+      h2(class='py-4') #{title}
+      block content
+    script(src='https://code.jquery.com/jquery-3.4.1.slim.min.js' integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n' crossorigin='anonymous') script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js' integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo' crossorigin='anonymous') script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js' integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6' crossorigin='anonymous')
+```
+Phase 8: Implement user logout
+
+-[x] Define and export a logoutUser() function in the auth module that removes the auth property from the req.session object
+```
+const logoutUser = (req, res) => {
+  delete req.session.auth;
+};
+module.exports = {
+  loginUser,
+  restoreUser,
+   logoutUser
+};
+
+```
+-[] create a button on page that fetches to a back end route
+  - when it pings that route, we impirt the user lout , and it will logout with the request, and redirect to splash page
+  - delet session, req.auth and redirect.
+-[] Import the logoutUser() function from the auth module and call it within the POST /user/logout route handler then redirect the user to the default route.
+    const { loginUser, logoutUser } = require('../auth');
+-[] add a POST /user/logout to the ./routes/user module to process POST requests from the logout form.
+```
+router.post('/user/logout', (req, res) => {
+  logoutUser(req, res);
+  res.redirect('/user/login');
+});
+```
+#sandbox#
+a(href='/') Sign Up!
