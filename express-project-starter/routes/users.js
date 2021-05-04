@@ -8,7 +8,7 @@ const { csrfProtection, asyncHandler } = require('../utils');
 
 const { loginUser, logoutUser } = require('../auth');
 
-router.get('/users/login', csrfProtection, (req, res) => {
+router.get('/login', csrfProtection, (req, res) => {
   res.render('userLogin', {
     title: 'Login',
     csrfToken: req.csrfToken(),
@@ -24,7 +24,7 @@ const loginValidators = [
     .withMessage('Please provide a value for Password'),
 ];
 
-router.post('/users/login', csrfProtection, loginValidators,
+router.post('/login', csrfProtection, loginValidators,
   asyncHandler(async (req, res) => {
     const {
       email,
@@ -43,6 +43,8 @@ router.post('/users/login', csrfProtection, loginValidators,
         // to the provided password.
         const passwordMatch = await bcrypt.compare(hashedPassword, user.hashedPassword.toString());
 
+
+        // console.log(passwordMatch)
         if (passwordMatch) {
           // If the password hashes match, then login the user
           // and redirect them to the default route.
@@ -66,7 +68,7 @@ router.post('/users/login', csrfProtection, loginValidators,
   }));
 
 /*   Editing Starts here     */
-router.get('/users/signup', csrfProtection, (req, res) => {
+router.get('/signUp', csrfProtection, (req, res) => {
   const user = db.User.build();
   res.render('signUp', {
     title: 'Register',
@@ -103,28 +105,30 @@ const userValidators = [
 ];
 
 
-router.post('/users/signup', csrfProtection, userValidators,
+router.post('/signUp', csrfProtection, userValidators,
   asyncHandler(async (req, res) => {
     const {
+      userName,
       email,
-      hashedPassword,
+      password,
     } = req.body;
-
+    console.log(req.body)
     const user = db.User.build({
-      email,
-      hashedPassword
+      userName,
+      email
     });
 
     const validatorErrors = validationResult(req);
 
     if (validatorErrors.isEmpty()) {
-      const encryptedPassword = await bcrypt.hash(hashedPassword, 10);
-      user.encryptedPassword = encryptedPassword;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.hashedPassword = hashedPassword;
       await user.save();
       loginUser(req, res, user);
       res.redirect('/');
     } else {
       const errors = validatorErrors.array().map((error) => error.msg);
+      console.log(errors);
       res.render('signUp', {
         title: 'Sign up',
         user,
