@@ -1,0 +1,17 @@
+extends layout.pug
+
+
+block content
+  form(action='/login' method='post')
+    input(type='hidden' name='_csrf' value=csrfToken)
+    div
+      label(type='field' ) Email
+      input(type='text' name='email')
+    div
+    div
+      label(type='field' ) Password
+      input(type='text' name='hashedPassword')
+    div
+    div
+      button(type='submit' ) Login
+    div
