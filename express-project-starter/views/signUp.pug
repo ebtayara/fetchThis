@@ -1,0 +1,23 @@
+extends layout.pug
+
+block content
+  if error
+    div(class='alert alert-danger' role='alert')
+      p The following error(s) occurred:
+      pre= JSON.stringify(error, null, 2)
+  a(href='/users/login') Login
+  form(action='/users/signUp' method='post')
+    label Sign up for free.
+    input(type='hidden' name='_csrf' value=csrfToken)
+    div(class='form-group')
+      label(for='email') Email
+      input(type='text' id='email' name='email' value=user.email class='form-control')
+    div(class='form-group')
+      label(for='userName') Username
+      input(type='text' id='userName' name='userName' value=user.userName class='form-control')
+    div(class='form-group')
+      label(for='password') Password
+      input(type='text' id='password' name='password' value=user.password class='form-control')
+    div(class='submitButton')
+      button(type='submit' class='submitButton') Sign Up!
+    //- a(href='/users/login') Login
