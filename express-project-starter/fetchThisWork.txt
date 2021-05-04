@@ -36,10 +36,10 @@ Phase 0:
     -[x] #!/usr/bin/env node     and then   bin/www  but it didn't work so NPM START
     -[x] npm install bcryptjs
 -[x] touch.env
-PORT=8081
-DB_USERNAME=fetchThisApp
+PORT=8080
+DB_USERNAME=fetchthisadmin
 DB_PASSWORD=fetchThisPassword
-DB_DATABASE=fetchThisDatabase
+DB_DATABASE=fetchthisdb
 DB_HOST=localhost
 SESSION_SECRET=fetchThisSecret
 -[x] Add an .env file containing the variables from the .env.example file;

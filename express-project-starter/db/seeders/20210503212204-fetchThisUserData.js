@@ -1,11 +1,13 @@
 'use strict';
+const bcrypt = require('bcryptjs')
+const hashedPassword  = bcrypt.hashSync('password',10);
 
 // {username:string,hashedPassword:string,email:string}
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Users', [
-      { username:'Tyrion',hashedPassword:'password', email:'Tyrion@dobermans.com',createdAt:new Date(), updatedAt:new Date() },
-      { username:'Ceviche',hashedPassword:'password', email:'Ceviche@cats.com',createdAt: new Date(), updatedAt:new Date()}
+      { username:'Tyrion',hashedPassword:hashedPassword, email:'Tyrion@dobermans.com',createdAt:new Date(), updatedAt:new Date() },
+      { username:'Ceviche',hashedPassword:hashedPassword, email:'Ceviche@cats.com',createdAt: new Date(), updatedAt:new Date()}
 
     ], {});
 /*

@@ -30,15 +30,16 @@ router.post('/login', csrfProtection, loginValidators,
       email,
       hashedPassword,
     } = req.body;
-
+    console.log(req.body);
     let errors = [];
     const validatorErrors = validationResult(req);
-
     if (validatorErrors.isEmpty()) {
+      console.log(req.body, 'INSIDE IF BLOCK');
       // grabbing the user by email
       const user = await db.User.findOne({ where: { email } });
 
       if (user !== null) {
+        console.log('User is not NULL')
         // user exists compare password
         // to the provided password.
         const passwordMatch = await bcrypt.compare(hashedPassword, user.hashedPassword.toString());
@@ -46,6 +47,7 @@ router.post('/login', csrfProtection, loginValidators,
 
         // console.log(passwordMatch)
         if (passwordMatch) {
+          console.log('password match')
           // If the password hashes match, then login the user
           // and redirect them to the default route.
           loginUser(req, res, user);
@@ -56,6 +58,7 @@ router.post('/login', csrfProtection, loginValidators,
       // Otherwise display an error message to the user.
       errors.push('Login failed for the provided email address and password');
     } else {
+      console.log(req.body,'INSIDE ELSE BLOCK');
       errors = validatorErrors.array().map((error) => error.msg);
     }
 
