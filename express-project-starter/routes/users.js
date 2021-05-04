@@ -117,7 +117,7 @@ router.post('/signUp', csrfProtection, userValidators,
     } = req.body;
     console.log(req.body, 'req.body' )
     const user = db.User.build({
-      userName,
+      username: userName,
       email
     });
     console.log(user);
