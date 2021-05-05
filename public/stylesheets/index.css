@@ -1,0 +1,51 @@
+/* .imageContainer {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    overflow: hidden;
+} */
+
+.fetchThisImg {
+    height: 150px;
+    width: 375px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    width: 50%;
+    object-fit: cover;
+    overflow: hidden;
+    
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.headerText {
+    color: #bc4749;
+    font-weight: bold;
+    font-size: 20px;
+    margin: auto;
+    width: 50%;
+}
+
+body {
+    background: #DEF6CA;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #b4a0e5;
+  color: #bc4249;
+  font-weight: bold;
+  text-align: center;
+}
+
+.navFooter div {
+  display: inline-block;
+  padding-bottom: 30px;
+}
