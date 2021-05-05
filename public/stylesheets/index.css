@@ -11,7 +11,14 @@
     height: 150px;
     width: 375px;
     margin: auto;
+<<<<<<< HEAD:express-project-starter/public/stylesheets/index.css
     max-width: 375px;
+=======
+    width: 50%;
+    object-fit: cover;
+    overflow: hidden;
+    
+>>>>>>> main:public/stylesheets/index.css
 }
 
 .container {
