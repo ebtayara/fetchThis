@@ -1,0 +1,119 @@
+fetchThisSummary
+A logged in user can retrieve with visible confirmation without causing a refresh/redirect.
+
+        GET /api/summary/:id
+
+/app/:id
+This page displays summary of associated tasks, as well as a navigation bar with login/signup or logout buttons.
+If logged in user owns the task, page displays buttons update and delete.
+
+GET /app/:id
+POST /app/:id
+DELETE /app/:id
+
+_______________________________________________________
+Persist the User State
+-[x] create session secret in .env, and Config file
+
+```
+module.exports = {
+  environment: process.env.NODE_ENV || 'development',
+  port: process.env.PORT || 8080,
+  sessionSecret: process.env.SESSION_SECRET,
+```
+
+-[x] in app.js import const session = require('express-session')
+    const app = express();
+    const { sessionSecret } = require('./config');
+
+-[x] in app.js user cookie parser to pass the session secret
+  app.use(cookieParser(sessionSecret));
+  const summaryRouter  = require('./routes/summary');
+
+-[x] create & export in utils.pug /checkUserAvailable
+
+-[x] import checkUserAvailable
+
+-[x] update summary.js
+```
+const express = require("express");
+const db = require('../db/models');
+const { Task } = db;
+const { csrfProtection, asyncHandler,checkUserAvailable } = require('../utils');
+
+const router = express.Router();
+
+```
+-[x] touch routes/summary.js
+```
+
+router.get(
+  "/", checkUserAvailable,
+  asyncHandler(async (req, res, next) => {
+      const tasks = await Task.findAll();
+      if (tasks) {
+          res.json({ tasks });
+      } else {
+          next(taskNotFoundError(taskId));
+      }
+    })
+);
+
+router.get(
+  "/:id(\\d+)",
+  checkUserAvailable,
+  asyncHandler(async (req, res, next) => {
+    const taskId = parseInt(req.params.id, 10);
+    const task = await Task.findByPk(taskId);
+
+    if (task) {
+      res.json({ task });
+    } else {
+      next(taskNotFoundError(taskId));
+    }
+  })
+);
+
+
+const taskNotFoundError = (id) => {
+  const err = Error(`Task with id of ${id} could not be found.`);
+  err.title = "Task not found.";
+  err.status = 404;
+  return err;
+};
+
+router.patch(
+  "/:id(\\d+)", checkUserAvailable,
+  asyncHandler(async (req, res, next) => {
+    const taskId = parseInt(req.params.id, 10);
+    const task = await Task.findByPk(taskId);
+
+    if (task) {
+      await task.update({ name: req.body.name });
+      res.json({ task });
+    } else {
+      next(taskNotFoundError(taskId));
+    }
+  })
+);
+
+router.delete(
+  "/:id(\\d+)",checkUserAvailable,
+  asyncHandler(async (req, res, next) => {
+    const taskId = parseInt(req.params.id, 10);
+    const task = await Task.findByPk(taskId);
+
+    if (task) {
+      await task.destroy();
+      res.status(204).end();
+    } else {
+      next(taskNotFoundError(taskId));
+    }
+  })
+);
+
+module.exports = router;
+
+```
+
+-[] touch views/summary.pug
