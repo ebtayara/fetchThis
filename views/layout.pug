@@ -1,0 +1,20 @@
+doctype html
+html
+  head
+      block head
+        title="Express Starter App"
+        link(rel='stylesheet' href='/stylesheets/main.css')
+  body
+    nav(class='navbar navbar-expand-lg navbar-dark bg-primary')
+      a(class='navbar-brand' href='/') Homepage
+      div(class='collapse navbar-collapse' id='navbarText')
+        ul(class='navbar-nav mr-auto')
+        if locals.authenticated
+          span(class='navbar-text px-4') Welcome to fetchThis, #{user.username}!
+          form(class='form-inline pr-4' action='/users/logout' method='post')
+            button(class='btn btn-sm btn-warning' type='submit') Logout
+        else
+          span(class='navbar-text px-4')
+            a(class='btn btn-sm btn-dark mr-2' href='/users/login') Login
+            a(class='btn btn-sm btn-dark' href='/users/signUp') Sign Up
+            block content
