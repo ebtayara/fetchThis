@@ -51,7 +51,7 @@ router.post('/login', csrfProtection, loginValidators,
           // If the password hashes match, then login the user
           // and redirect them to the default route.
           loginUser(req, res, user);
-          return res.redirect('/');
+          return req.session.save(() => res.redirect("/"));
         }
       }
 
@@ -129,7 +129,7 @@ router.post('/signUp', csrfProtection, userValidators,
       user.hashedPassword = hashedPassword;
       await user.save();
       loginUser(req, res, user);
-      res.redirect('/');
+      req.session.save(() => res.redirect("/"))
     } else {
       console.log(validatorErrors,'validatorErrors')
       console.log(req.body, 'INSIDE ELSE BLOCK');
@@ -146,7 +146,7 @@ router.post('/signUp', csrfProtection, userValidators,
 
   router.post('/logout', (req, res) => {
   logoutUser(req, res);
-  res.redirect('/login');
+  req.session.save(() => res.redirect("/"))
 });
 
 module.exports = router;

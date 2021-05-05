@@ -10,7 +10,7 @@ html
       div(class='collapse navbar-collapse' id='navbarText')
         ul(class='navbar-nav mr-auto')
         if locals.authenticated
-          span(class='navbar-text px-4') Welcome #{user.userName}!
+          span(class='navbar-text px-4') Welcome to fetchThis, #{user.username}!
           form(class='form-inline pr-4' action='/users/logout' method='post')
             button(class='btn btn-sm btn-warning' type='submit') Logout
         else

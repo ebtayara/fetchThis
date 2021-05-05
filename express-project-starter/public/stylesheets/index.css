@@ -1,19 +1,17 @@
-/* .imageContainer {
+.imageContainer {
+    display: flex;
+    flex-wrap: wrap;
     position: relative;
-    height: 300px;
     width: 100%;
-    overflow: hidden;
-} */
+    flex-direction: column;
+    align-items: center;
+}
 
 .fetchThisImg {
     height: 150px;
     width: 375px;
-    display: flex;
-    flex-wrap: wrap;
     margin: auto;
-    width: 50%;
-    object-fit: cover;
-    overflow: hidden;
+    max-width: 375px;
 }
 
 .container {
@@ -22,15 +20,21 @@
 }
 
 .headerText {
+    display: inline-block;
     color: #bc4749;
     font-weight: bold;
     font-size: 20px;
     margin: auto;
-    width: 50%;
+    max-width: 375px;
+    text-align: center;
 }
 
 body {
     background: #DEF6CA;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: center;
 }
 
 .footer {
