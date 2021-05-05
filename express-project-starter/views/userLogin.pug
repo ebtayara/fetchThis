@@ -2,7 +2,7 @@ extends layout.pug
 
 
 block content
-  form(action='/login' method='post')
+  form(action='/users/login' method='post')
     input(type='hidden' name='_csrf' value=csrfToken)
     div
       label(type='field' ) Email
