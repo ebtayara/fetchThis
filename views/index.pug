@@ -2,31 +2,10 @@ extends layout
 
 append head
   //- add page specific styles by appending to the head
-  //- link(rel="stylesheet" href="/stylesheets/index.css")
+  link(rel="stylesheet" href="/stylesheets/index.css")
   //- add page specific js
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
-  body
-    div(class="imageContainer")
-      img(src="/fetchThis.png" class = "fetchThisImg")
-      p(class="headerText") Remembering our Pets' needs, one fetch at a time!
-      div(class="footer") Fetch more information?
-        div
-          ul(class="navFooter")
-            li(class="navFooterContainer")
-            li
-              a(href="/about") About
-            li
-              a(href="/jobs") Jobs
-            li
-              a(href="/contact") Contact us
-        div
-          ul(class="navFooter")
-            li(class="navFooterContainer")
-            li
-              a(href="/getStarted") Get Started
-            li
-              a(href="/help") Help
-            li
-              a(href="/vip") VIP
+  h1= title
+  p Welcome to your Project Skeleton
