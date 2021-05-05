@@ -1,0 +1,8 @@
+extends layout.pug
+
+
+block content
+  form(action='/:id(\\d+)/edit' method='post')
+    input(type='hidden' name='_csrf' value=csrfToken)
+    div
+      Button(type='submit') Edit

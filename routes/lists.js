@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require('../db/models');
-const { List } = db;
+const { List, User } = db;
 const { csrfProtection, asyncHandler } = require('../utils');
 const {requireAuth, restoreUser} = require('../auth');
 
@@ -8,14 +8,14 @@ const {requireAuth, restoreUser} = require('../auth');
 
 const router = express.Router();
 
-console.log(db)
-console.log(List)
+// console.log(db)
+// console.log(List)
 
 router.get(
     "/", requireAuth,
     asyncHandler(async (req, res, next) => {
         const lists = await List.findAll();
-        console.log(lists)
+        // console.log(lists)
         if (lists) {
             res.json({ lists });
         } else {
@@ -52,7 +52,7 @@ router.get(
       const list = await List.findByPk(listId);
       if (list) {
         await list.update({ name: req.body.name });
-        res.json({ list });
+        res.render('list', { list });
       } else {
         next(listNotFoundError(listId));
       }
