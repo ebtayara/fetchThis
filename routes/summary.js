@@ -13,7 +13,8 @@ router.get(
   asyncHandler(async (req, res, next) => {
       const tasks = await Task.findAll();
       if (tasks) {
-          res.json({ tasks });
+        // res.json({ tasks });
+        res.render('summary', {'tasks': tasks});
       } else {
           next(taskNotFoundError(taskId));
       }
