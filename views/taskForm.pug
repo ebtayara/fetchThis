@@ -1,0 +1,9 @@
+include utils.pug
+
+input(type='hidden' name='_csrf' value=csrfToken)
+
+block content
+    h1(class="Tasks") Tasks
+    div(class="taskContainer")
+        p=task.name
+        p=task.description

@@ -5,6 +5,6 @@ include utils.pug
 block content
     form(action=`/tasks/edit/${task.id}` method='post')
         include taskForm.pug
-        div(class='py-4')
-            button(type='submit' class='btn btn-primary') Edit Task
-            a(href='/' class='btn btn-warning ml-2') Cancel
+        div(class='editButton')
+            button(type='submit' class='editButton') Edit Task
+            a(href='/' class='cancelEdit') Cancel

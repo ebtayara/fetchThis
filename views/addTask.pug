@@ -5,6 +5,8 @@ include utils.pug
 block content
     form(action='/tasks/add' method='post')
         include taskForm.pug
-        div(class='py-4')
-            button(type='submit' class='btn btn-primary') Add Task
-            a(href='/' class='btn btn-warning ml-2') Cancel
+        div
+            textarea(type='textarea' class='taskTextContainer') Add a Task...
+        div(class='addButton')
+            button(type='submit' class='taskButton') Add Task
+            a(href='/' class='cancelTask') Cancel
