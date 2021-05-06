@@ -57,12 +57,5 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-app.get('/add', (req, res) => {
-  console.log(`Request method: ${req.method}`);
-  console.log(`Request path: ${req.path}`);
-
-  res.render('addTask');
-});
-
 
 module.exports = app;

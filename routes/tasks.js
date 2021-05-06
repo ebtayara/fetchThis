@@ -11,7 +11,8 @@ router.get(
   asyncHandler(async (req, res, next) => {
       const tasks = await Task.findAll();
       if (tasks) {
-          res.json({ tasks });
+          // res.json({ tasks });
+          res.render('tasks',{ 'tasks': tasks });
       } else {
           next(taskNotFoundError(taskId));
       }
@@ -31,8 +32,14 @@ router.get(
       next(taskNotFoundError(taskId));
     }
   })
-);
+  );
 
+router.get('/add', (req, res) => {
+  console.log(`Request method: ${req.method}`);
+  console.log(`Request path: ${req.path}`);
+
+  res.render('addTask');
+});
 
 const taskNotFoundError = (id) => {
   const err = Error(`Task with id of ${id} could not be found.`);
