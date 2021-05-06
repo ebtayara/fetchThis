@@ -117,16 +117,87 @@ module.exports = router;
 ```
 
 -[x] touch views/summary.pug
-
+```
 extends layout.pug
-
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/summary.css")
+  //- add page specific js
+//-   script(src="/javascripts/index.js" type="module" defer)
 block content
-  h2 Add Guest
-  form(method="post" action="/guest")
-    label(for="fullname") Full Name:
-    input(type="fullname" id="fullname" name="fullname")
-    label(for="email") Email:
-    input(type="email" id="email" name="email")
-    label(for="numGuests") Num Guests
-    input(type="number" id="numGuests" name="numGuests")
-    input(type="submit" value="Add Guest")
+  h1(class="summaryTitle") Task Summary
+  div(class="summaryFlexContainer")
+    div(class="summaryFlexChild")
+      h2 Pending Tasks
+      each task in tasks
+        if !task.completed
+          div(class="summaryTaskContainer")
+            p=task.name
+            p=task.description
+    div(class="summaryFlexChild")
+      h2 Completed Tasks
+      each task in tasks
+        if task.completed
+          div(class="summaryTaskContainer")
+            p=task.name
+            p=task.description
+
+```
+
+-[x] touch stylesheets/summary.css
+  append the style sheet with the layout head
+  import the style
+```
+body {
+    background: #DEF6CA;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: center;
+}
+
+.summaryFlexContainer{
+    display:flex;
+    justify-content: space-around;
+}
+
+.summaryFlexChild{
+    border: 0.5px solid grey;
+    border-radius: 10px;
+    width: 45%;
+    margin: 10px;
+    padding: 10px;
+}
+
+.summaryTaskContainer{
+    border: 0.5px solid grey;
+    border-radius: 10px;
+    background-color: lightgray;
+    margin: 10px 0;
+    padding: 10px;
+
+}
+
+.summaryTaskContainer{
+    border: 0.5px solid grey;
+    border-radius: 10px;
+    background-color: lightgray;
+    margin: 10px 0;
+    padding: 10px;
+
+}
+.summaryTitle{
+    text-align:center;
+    margin: 10px;
+}
+
+
+/*
+background: #DEF6CA;
+color: #bc4749;
+background-color: #b4a0e5;
+color: #bc4249;
+
+548c2f
+*/
+```
