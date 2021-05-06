@@ -9,30 +9,31 @@ append head
 block content
   body
     div(class="imageContainer")
-      img(src="/fetchThis.png" class = "fetchThisImg")
+      a(href="/")
+        img(src="/fetchThis.png" class = "fetchThisImg")
       p(class="headerText") Remembering our Pets' needs, one fetch at a time!
     div(class="main")
       div(id="slider")
         figure
-          img(src="/fetchThis.png")
-          img(src="/fetchThis.png")
+          div.headers
+            h2 Finding it hard to keep up with Fido's daily life?
+            img(src="/pic1.png")
+          div.headers
+            h2 A Web App to keep track of your pets' needs with the help.
+            img(src="/pic2.png")
+          div.headers
+            h2 Daily check off on tasks to optimize your pet's day.
+            img(src="/pic3.png")
 
-      div(class="footer") Fetch more information?
-        div
-          ul(class="navFooter")
-            li(class="navFooterContainer")
-            li
-              a(href="/about") About
-            li
-              a(href="/jobs") Jobs
-            li
-              a(href="/contact") Contact us
-        div
-          ul(class="navFooter")
-            li(class="navFooterContainer")
-            li
-              a(href="/getStarted") Get Started
-            li
-              a(href="/help") Help
-            li
-              a(href="/vip") VIP
+    div(class="footer") Fetch more information?
+      div(class="test")
+        ul(class="navFooter")
+          div(class="navFooterContainer")
+            a(href="/about") About
+            a(href="/jobs") Job
+            a(href="/contact") Contact us
+        ul(class="navFooter")
+          div(class="navFooterContainer")
+            a(href="/getStarted") Get Started
+            a(href="/help") Help
+            a(href="/vip") VIP
