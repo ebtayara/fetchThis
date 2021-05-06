@@ -3,26 +3,43 @@ const db = require('../db/models');
 const { List, User } = db;
 const { csrfProtection, asyncHandler } = require('../utils');
 const {requireAuth, restoreUser} = require('../auth');
+const { Session } = require("express-session");
 
 
 
 const router = express.Router();
 
-// console.log(db)
-// console.log(List)
 
-router.get(
+// router.get(
+//     "/", requireAuth,
+//     asyncHandler(async (req, res, next) => {
+//       console.log(req.session.auth.userId)
+//       // console.log(User.username)
+//         const lists = await List.findAll();
+//         // console.log(lists)
+//         if (lists) {
+//             res.render('list', { lists });
+//         } else {
+//             next(listNotFoundError(listId));
+//         }
+//       })
+//   );
+
+
+  router.get(
     "/", requireAuth,
     asyncHandler(async (req, res, next) => {
-        const lists = await List.findAll();
-        // console.log(lists)
+        const lists = await List.findByPk(req.session.auth.userId);
+        console.log(lists.toJSON())
         if (lists) {
-            res.json({ lists });
+            res.render('list', { lists });
         } else {
             next(listNotFoundError(listId));
         }
       })
   );
+
+
 
   router.get(
     "/:id(\\d+)",
@@ -44,6 +61,28 @@ router.get(
     err.status = 404;
     return err;
   };
+
+
+
+  router.post(
+    "/", requireAuth,
+    asyncHandler(async (req, res, next) => {
+      // const { name } = req.body
+      // const newList = List.build({ name });
+
+      // await newList.save()
+      // res.render('list', );
+
+      // if (list) {
+      //   await list.update({ name: req.body.name });
+      //   res.render('list', { list });
+      // } else {
+      //   next(listNotFoundError(listId));
+      // }
+    })
+  );
+
+
 
   router.post(
     "/:id(\\d+)/edit", requireAuth,
