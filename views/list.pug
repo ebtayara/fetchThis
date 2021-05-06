@@ -1,8 +1,29 @@
 extends layout.pug
 
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/index.css")
+  //- add page specific js
+  //- script(src="/javascripts/index.js" type="module" defer)
+
 
 block content
-  form(action='/:id(\\d+)/edit' method='post')
-    input(type='hidden' name='_csrf' value=csrfToken)
-    div
-      Button(type='submit') Edit
+  block content
+  div
+    a(href='/lists/edit' role='button') Edit
+  table
+    thead
+      tr
+        th List Name
+    tbody
+      each list in lists
+        tr
+          td= list.name
+  //- p HELLO
+  //- ul
+  //-   each thing in lists
+      //- li=thing.name
+      //- a(class='btn btn-primary' href=`/tasks/${user.id}` role='button') Edit
+  //- form(action="/lists" method="post")
+  //-   input(type="text" name="name")
+  //-   button Create New List
