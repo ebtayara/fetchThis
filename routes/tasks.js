@@ -9,10 +9,10 @@ const router = express.Router();
 router.get(
   "/", requireAuth,
   asyncHandler(async (req, res, next) => {
-      const tasks = await Task.findAll();
+      const tasks = await Task.findAll( {where: {userId:req.session.auth.userId}} );
       if (tasks) {
           // res.json({ tasks });
-          res.render('tasks',{ 'tasks': tasks });
+          res.render('taskForm',{ 'tasks': tasks });
       } else {
           next(taskNotFoundError(taskId));
       }
@@ -34,12 +34,19 @@ router.get(
   })
   );
 
-router.get('/add', (req, res) => {
-  console.log(`Request method: ${req.method}`);
-  console.log(`Request path: ${req.path}`);
+router.get('/add', requireAuth, (req, res) => {
+  // console.log(`Request method: ${req.method}`);
+  // console.log(`Request path: ${req.path}`);
 
   res.render('addTask');
 });
+
+// router.get('/edit', requireAuth, (req, res) => {
+//   // console.log(`Request method: ${req.method}`);
+//   // console.log(`Request path: ${req.path}`);
+
+//   res.render('editTask');
+// });
 
 const taskNotFoundError = (id) => {
   const err = Error(`Task with id of ${id} could not be found.`);
@@ -48,7 +55,16 @@ const taskNotFoundError = (id) => {
   return err;
 };
 
-router.patch(
+router.get(
+  "/:id(\\d+)/edit", requireAuth,
+  asyncHandler(async (req, res, next) => {
+    const taskId = parseInt(req.params.id, 10);
+    const tasks = await Task.findByPk(taskId);
+    res.render('editTask', { tasks })
+  })
+)
+
+router.post(
   "/:id(\\d+)", requireAuth,
   asyncHandler(async (req, res, next) => {
     const taskId = parseInt(req.params.id, 10);

@@ -1,0 +1,23 @@
+extends layout.pug
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/main.css")
+  //- add page specific js
+//-   script(src="/javascripts/index.js" type="module" defer)
+block content
+  h1(class="summaryTitle") Task Summary
+  div(class="summaryFlexContainer")
+    div(class="summaryPendingFlexChild")
+      h2(class="summaryPendingTaskHeader") Pending Tasks
+      each task in tasks
+        if !task.completed
+          div(class="summaryPendingTaskContainer")
+            p=task.name
+            p=task.description
+    div(class="summaryCompletedFlexChild")
+      h2(class="summaryCompletedTaskHeader") Completed Tasks
+      each task in tasks
+        if task.completed
+          div(class="summaryCompletedTaskContainer")
+            p=task.name
+            p=task.description

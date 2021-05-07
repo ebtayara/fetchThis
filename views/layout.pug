@@ -2,7 +2,23 @@ doctype html
 html
   head
       block head
-        title="Express Starter App"
-        link(rel='stylesheet' href='/stylesheets/reset.css')
+        title="fetchThis"
+        link(rel='stylesheet' href='/stylesheets/main.css')
   body
-    block content
+    div(class="bar")
+
+        form(action='/' method='get')
+            button(class='btn' type='submit') Home
+        div(class='collapse navbar-collapse' id='navbarText')
+          ul(class='navbar-nav mr-auto')
+          if locals.authenticated
+            span(class='navbar-text px-4') Welcome #{user.username}!
+            form(class='form-inline pr-4' action='/users/logout' method='post')
+              button(class='btn btn-sm btn-warning' type='submit') Logout
+          else
+            span(class='navbar-text px-4')
+            form(action='/users/login' method='get')
+              button(class='btn' type='submit') Login
+            form(action='/users/signUp' method='get')
+              button(class='btn' type='submit') Sign Up
+          block content

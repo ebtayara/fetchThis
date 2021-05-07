@@ -1,0 +1,61 @@
+body {
+    background: #DEF6CA;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.summaryTitle{
+    font-weight: bold;
+    font-size: 40px;
+}
+.summaryFlexContainer{
+    display:flex;
+    justify-content: space-around;
+}
+
+.summaryPendingFlexChild {
+    border: 0.5px solid grey;
+    background-color: #548c2f;
+    border-radius: 10px;
+    width: 45%;
+    margin: 10px;
+    padding: 10px;
+}
+
+.summaryPendingTaskHeader{
+    color: #bc4749;
+}
+
+.summaryPendingTaskContainer{
+    border: 0.5px solid grey;
+    border-radius: 10px;
+    background-color:#DEF6CA;
+    margin: 10px 0;
+    padding: 10px;
+
+}
+.summaryCompletedFlexChild {
+    border: 0.5px solid grey;
+    background-color: #b4a0e5;
+    border-radius: 10px;
+    width: 45%;
+    margin: 10px;
+    padding: 10px;
+}
+.summaryCompletedTaskHeader{
+    color:black;
+}
+.summaryCompletedTaskContainer{
+    border: 0.5px solid grey;
+    border-radius: 10px;
+    background-color:lightgray;
+    margin: 10px 0;
+    padding: 10px;
+
+}
+.summaryTitle{
+    text-align:center;
+    margin: 10px;
+}
