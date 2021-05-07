@@ -3,5 +3,19 @@
   flex-direction: column;
   align-items: center;
   font-weight: bold;
+  justify-content: space-between;
   /* width: 100%; */
+}
+
+.bar {
+  position: static;
+  top: 0;
+  width: 100%;
+  left: 0;
+  height: 100px;
+  background-color: #B4A0E5;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 2px solid grey;
 }

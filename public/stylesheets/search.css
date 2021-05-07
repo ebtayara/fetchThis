@@ -1,0 +1,34 @@
+.searchTitle {
+  font-weight: bold;
+  font-size: 40px;
+  text-align: center;
+  margin: 10px;
+}
+
+.searchFlexContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.searchPendingFlexChild {
+  border: 0.5px solid grey;
+  background-color: #548c2f;
+  border-radius: 10px;
+  width: 45%;
+  margin: 10px;
+  padding: 10px;
+}
+
+.searchPendingTaskContainer{
+  border: 0.5px solid grey;
+  border-radius: 10px;
+  background-color:#DEF6CA;
+  margin: 10px 0;
+  padding: 10px;
+
+}
+
+.searchBox {
+  text-align: center;
+  margin: 10px;
+}
