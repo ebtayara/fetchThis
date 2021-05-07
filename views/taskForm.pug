@@ -1,0 +1,41 @@
+extends layout.pug
+//- include utils.pug
+append head
+    link(rel="stylesheet" href="/stylesheets/main.css")
+//-     script(src="/javascripts/tasks.js" type="module" defer)
+block content
+    input(type='hidden' name='_csrf' value=csrfToken)
+    h1(class="tasksTitle") Tasks
+        div
+            textarea(type='textarea' class='taskTextContainer' placeholder='Add a Task...')
+            button(type='submit' class='taskButton') Add
+        each task in tasks
+            div(class="tasksContainer")
+                div(class="tasksFlexContainer")
+                    p=task.name
+                    a(href=`/tasks/${task.id}/edit`)
+                        button(type='submit' class='editButton') Edit
+                        button(type='submit' class='completeButton') Complete
+                        button(type='submit' class='removeButton') Remove
+
+//- extends layout.pug
+//- //- include utils.pug
+//- append head
+//-     link(rel="stylesheet" href="/stylesheets/main.css")
+//- //-     script(src="/javascripts/tasks.js" type="module" defer)
+//- block content
+//-     input(type='hidden' name='_csrf' value=csrfToken)
+//-     h1(class="tasksTitle") Tasks
+//-         each task in tasks
+//-             div(class="tasksContainer")
+//-                 div(class="tasksFlexContainer")
+//-                     input(id=task.id type='checkbox' class='checkbox' checked=false)
+//-                     p=task.name
+//-                     a(href=`/tasks/${task.id}/edit`)
+//-             div
+//-                 textarea(type='textarea' class='taskTextContainer' placeholder='Add a Task...')
+//-             div(class='addButton')
+//-                 button(type='submit' class='taskButton') Add
+//-                     div(class='editButton')
+//-                     button(type='submit' class='editButton') Edit
+//-                     a(href='/' class='cancelTask') Back to List

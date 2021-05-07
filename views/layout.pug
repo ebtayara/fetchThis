@@ -5,20 +5,26 @@ html
         title="fetchThis"
         link(rel='stylesheet' href='/stylesheets/main.css')
   body
-    div(class="bar")
-
-        form(action='/' method='get')
-            button(class='btn' type='submit') Home
-        div(class='collapse navbar-collapse' id='navbarText')
-          ul(class='navbar-nav mr-auto')
-          if locals.authenticated
-            span(class='navbar-text px-4') Welcome #{user.username}!
-            form(class='form-inline pr-4' action='/users/logout' method='post')
-              button(class='btn btn-sm btn-warning' type='submit') Logout
-          else
-            span(class='navbar-text px-4')
-            form(action='/users/login' method='get')
-              button(class='btn' type='submit') Login
-            form(action='/users/signUp' method='get')
-              button(class='btn' type='submit') Sign Up
-          block content
+    nav(class="bar")
+      form(action='/' method='get')
+          button(class='btn' type='submit') Home
+      if locals.authenticated
+        span(class='navbar-text px-4') Welcome #{user.username}!
+        form(action='/users/logout' method='post')
+          button(class='btn' type='submit') Logout
+        form(action='/tasks' method='get')
+          button(class='navBtn' type='submit') Create/View Tasks
+        form(action='/summary' method='get')
+          button(class='navBtn' type='submit') Your Task Summary
+        form(action='/lists' method='get')
+          button(class='navBtn' type='submit') Your Task Lists
+        form(action='/tasks/search' method='post')
+          input(type='text')
+          button(class='navBtn' type='submit') Search for Tasks
+      else
+        span(class='homepageNav')
+        form(action='/users/login' method='get')
+          button(class='btn' type='submit') Login
+        form(action='/users/signUp' method='get')
+          button(class='btn' type='submit') Sign Up
+    block content
