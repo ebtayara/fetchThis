@@ -13,16 +13,21 @@ body {
     display:flex;
     justify-content: space-around;
 } */
-.checkbox{
+/* .checkbox{
     margin: 10px;
     padding: 10px;
+} */
+.taskButton{
+    display:flex;
+    justify-content: center;
 }
+
 .tasksTitle{
     text-align:center;
     margin: 10px;
 }
 
-.tasksFlexContainer {
+.tasksFlexContainer{
     display:flex;
     justify-content: space-around;
     border: 0.5px solid grey;
@@ -34,10 +39,12 @@ body {
 }
 
 .tasksContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: 0.5px solid grey;
     border-radius: 10px;
     background-color:#DEF6CA;
     margin: 10px 0;
     padding: 10px;
-
 }
