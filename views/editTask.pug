@@ -1,10 +1,9 @@
 extends layout.pug
-
 include utils.pug
-
+append head
+    link(rel="stylesheet" href="/stylesheets/main.css")
 block content
+    h1(class='editedTask' value=selectedTask - this needs to change)
     form(action=`/tasks/edit/${task.id}` method='post')
         include taskForm.pug
-        div(class='py-4')
-            button(type='submit' class='btn btn-primary') Edit Task
-            a(href='/' class='btn btn-warning ml-2') Cancel
+            a(href='/' class='cancelEdit') Back to Tasks
