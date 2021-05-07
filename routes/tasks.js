@@ -109,19 +109,26 @@ router.post(
 //   })
 // );
 
-// router.delete(
-//   "/:id(\\d+)",requireAuth,
-//   asyncHandler(async (req, res, next) => {
-//     const taskId = parseInt(req.params.id, 10);
-//     const task = await Task.findByPk(taskId);
+router.get('/delete/:id(\\d+)', requireAuth,
+  asyncHandler(async (req, res) => {
+    const taskId = parseInt(req.params.id, 10);
+    const task = await Task.findByPk(taskId);
+    res.render('taskDelete', { task });
+  }));
 
-//     if (task) {
-//       await task.destroy();
-//       res.status(204).end();
-//     } else {
-//       next(taskNotFoundError(taskId));
-//     }
-//   })
-// );
+router.post(
+  "/:id(\\d+)",requireAuth,
+  asyncHandler(async (req, res, next) => {
+    const taskId = parseInt(req.params.id, 10);
+    const task = await Task.findByPk(taskId);
+
+    if (task) {
+      await task.destroy();
+      res.redirect('/tasks')
+    } else {
+      next(taskNotFoundError(taskId));
+    }
+  })
+);
 
 module.exports = router;

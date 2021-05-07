@@ -14,10 +14,11 @@ block content
             div(class="tasksContainer")
                 div(class="tasksFlexContainer")
                     p=task.name
-                    a(href=`/tasks/${task.id}/edit`)
-                        button(type='submit' class='editButton') Edit
-                        button(type='submit' class='completeButton') Complete
                         button(type='submit' class='removeButton') Remove
+                    a(href=`/tasks/${task.id}/edit`)
+                        button(id=type='submit' class='editButton') Edit
+                    a(href=`/tasks/${task.id}/summary`)
+                        button(type='submit' class='completeButton') Complete
 
 //- extends layout.pug
 //- //- include utils.pug
