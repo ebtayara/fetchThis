@@ -6,12 +6,15 @@ const { requireAuth } = require('../auth');
 const router = express.Router();
 
 
-router.get("?", requireAuth, asyncHandler(async (req, res, next) => {
-  const tasks = await Task.findAll( );
+router.get("/", requireAuth, asyncHandler(async (req, res, next) => {
+  const tasks = await Task.findAll({ where: { userId: req.session.auth.userId }});
     if (tasks) {
-        res.json({ tasks });
+        // res.json({ tasks });
+         res.render('search', { 'tasks': tasks });
     } else {
         next(taskNotFoundError(taskId));
     }
   })
 );
+
+module.exports = router;

@@ -8,6 +8,7 @@
 
 
 
-
+@import url('search.css');
 @import url('summary.css');
 @import url('navbar.css');
+@import url('homepageNav.css');

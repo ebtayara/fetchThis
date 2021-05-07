@@ -1,0 +1,14 @@
+extends layout.pug
+
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/index.css")
+  //- add page specific js
+  //- script(src="/javascripts/index.js" type="module" defer)
+
+block content
+    body
+        form(action="/lists/edit" method='post')
+            label Edit List:
+            input(type="text" name="name")
+            a(href=`/lists` role='button') Submit

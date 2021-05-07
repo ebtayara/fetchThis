@@ -8,22 +8,17 @@ append head
 
 
 block content
-  block content
+  h1
+  div(class="")
+    div(class="")
+      h2(class="") Current Lists
+      if lists
+        each list in lists
+          p.name= list.name
+          a(href=`/lists/${list.id}/edit` role='button') Edit
+            //- button(type="submit") Edit
+          a(href=`/lists/${list.id}/delete` role='button') Delete
+          //- div(class="")
+          //-   p=list.name
   div
-    a(href='/lists/edit' role='button') Edit
-  table
-    thead
-      tr
-        th List Name
-    tbody
-      each list in lists
-        tr
-          td= list.name
-  //- p HELLO
-  //- ul
-  //-   each thing in lists
-      //- li=thing.name
-      //- a(class='btn btn-primary' href=`/tasks/${user.id}` role='button') Edit
-  //- form(action="/lists" method="post")
-  //-   input(type="text" name="name")
-  //-   button Create New List
+    a(href='/lists/add' role='button') Add

@@ -21,3 +21,5 @@ block content
           div(class="summaryCompletedTaskContainer")
             p=task.name
             p=task.description
+    form(action="/summary" method="post")
+      button(type="submit") Test Submit
