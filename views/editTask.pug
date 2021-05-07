@@ -1,9 +1,11 @@
 extends layout.pug
-include utils.pug
+//- include utils.pug
 append head
     link(rel="stylesheet" href="/stylesheets/main.css")
 block content
-    h1(class='editedTask' value=selectedTask - this needs to change)
-    form(action=`/tasks/edit/${task.id}` method='post')
-        include taskForm.pug
-            a(href='/' class='cancelEdit') Back to Tasks
+    body
+        form(action=`/tasks/${task.id}/edit` method='post')
+            input(type='hidden', name='_csrf', value=csrfToken)
+            label Edit Task:
+            input(type="text" name="name")
+            button(type='submit' role='button') Submit
