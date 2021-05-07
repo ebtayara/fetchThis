@@ -10,6 +10,9 @@ router.get(
   "/", requireAuth,
   asyncHandler(async (req, res, next) => {
       const tasks = await Task.findAll( {where: {userId:req.session.auth.userId}} );
+      console.log("Task Object", tasks[0])
+      console.log("data values", tasks.dataValues)
+      // console.log("individual values", tasks.task)
       if (tasks) {
           // res.json({ tasks });
           res.render('taskForm',{ 'tasks': tasks });
@@ -20,7 +23,7 @@ router.get(
 );
 
 router.get(
-  "/:id(\\d+)",
+  "/:id(\\d+)/add",
   requireAuth,
   asyncHandler(async (req, res, next) => {
     const taskId = parseInt(req.params.id, 10);
@@ -34,13 +37,15 @@ router.get(
   })
   );
 
-router.post('/add', asyncHandler, async(req, res, next) => {
-  // console.log(`Request method: ${req.method}`);
+router.post('/add', asyncHandler(async(req, res, next) => {
+  console.log('hitting the add route');
   // console.log(`Request path: ${req.path}`);
-  const {name} = req.body
-  const task = await Task.create({ name, include: User })
-  res.render('summary'); //or am I redirecting to /summary?
-});
+  console.log(req.body)
+  const {taskValue} = req.body
+  console.log(taskValue)
+  const task = await Task.create({ name: taskValue })
+  res.redirect('/summary');
+}));
 
 // router.get('/edit', requireAuth, (req, res) => {
 //   // console.log(`Request method: ${req.method}`);
@@ -118,6 +123,5 @@ router.post(
 //     }
 //   })
 // );
-
 
 module.exports = router;

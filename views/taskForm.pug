@@ -2,7 +2,7 @@ extends layout.pug
 //- include utils.pug
 append head
     link(rel="stylesheet" href="/stylesheets/main.css")
-//-     script(src="/javascripts/tasks.js" type="module" defer)
+    script(src="/javascripts/tasks.js" type="module" defer)
 block content
     input(type='hidden' name='_csrf' value=csrfToken)
     h1(class="tasksTitle") Tasks
@@ -11,8 +11,8 @@ block content
             div
                 button(id='addButton' type='submit' class='addButton') Add
         each task in tasks
-            div(id='tasks' class="tasksContainer")
-                div(id='tasksFlex' class="tasksFlexContainer")
+            div(class="tasksContainer")
+                div(class="tasksFlexContainer")
                     p=task.name
                     a(href=`/tasks/${task.id}/edit`)
                         button(type='submit' class='editButton') Edit
