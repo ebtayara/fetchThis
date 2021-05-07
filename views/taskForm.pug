@@ -12,7 +12,7 @@ block content
                 button(id='addButton' type='submit' class='addButton') Add
         each task in tasks
             div(class="tasksContainer")
-                div(class="tasksFlexContainer")
+                div(id='tasks' class="tasksFlexContainer")
                     p=task.name
                     a(href=`/tasks/${task.id}/edit`)
                         button(type='submit' class='editButton') Edit
