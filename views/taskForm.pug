@@ -7,7 +7,7 @@ block content
     input(type='hidden' name='_csrf' value=csrfToken)
     h1(class="tasksTitle") Tasks
         div
-            textarea(type='text' class='taskTextContainer' placeholder='Add a Task...')
+            textarea(id='textarea' type='text' class='taskTextContainer' placeholder='Add a Task...')
             div
                 button(id='addButton' type='submit' class='addButton') Add
         each task in tasks
