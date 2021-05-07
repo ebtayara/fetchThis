@@ -198,6 +198,11 @@ color: #bc4749;
 background-color: #b4a0e5;
 color: #bc4249;
 
-548c2f
+DEF6CA background           LIGHT GREEN
+A7C957 Android Green        BRIGHT GREEN
+6A994E May Green            Dark GReen
+B4A0E5 purple
+#bc4749 red
+
 */
 ```

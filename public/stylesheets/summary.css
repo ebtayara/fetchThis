@@ -17,7 +17,8 @@ body {
 
 .summaryPendingFlexChild {
     border: 0.5px solid grey;
-    background-color: #548c2f;
+    /* background-color: #DEF6CA; */
+     background-color: #A7C957;
     border-radius: 10px;
     width: 45%;
     margin: 10px;
@@ -32,6 +33,7 @@ body {
     border: 0.5px solid grey;
     border-radius: 10px;
     background-color:#DEF6CA;
+    /* background-color: #A7C957; */
     margin: 10px 0;
     padding: 10px;
 
@@ -53,7 +55,6 @@ body {
     background-color:lightgray;
     margin: 10px 0;
     padding: 10px;
-
 }
 .summaryTitle{
     text-align:center;

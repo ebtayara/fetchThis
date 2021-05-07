@@ -11,7 +11,8 @@ const router = express.Router();
 router.get(
   "/", requireAuth,
   asyncHandler(async (req, res, next) => {
-      const tasks = await Task.findAll();
+    // const tasks = await Task.findByPk(req.session.auth.userId);
+      const tasks = await Task.findAll( { where: { userId: req.session.auth.userId } });
       if (tasks) {
         // res.json({ tasks });
         res.render('summary', {'tasks': tasks});
@@ -44,7 +45,7 @@ const taskNotFoundError = (id) => {
   return err;
 };
 
-router.patch(
+router.post(
   "/:id(\\d+)", requireAuth,
   asyncHandler(async (req, res, next) => {
     const taskId = parseInt(req.params.id, 10);
