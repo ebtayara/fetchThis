@@ -7,11 +7,12 @@ append head
   //- script(src="/javascripts/index.js" type="module" defer)
 
 block content
-    body
-        form(action=`/lists/${list.id}/edit` method='post')
+  body
+    div
+      p ARE YOU SURE YOU WANT TO DELETE THIS LIST???
+        form(action=`/lists/delete/${list.id}` method='post')
           input(type='hidden' name='_csrf' value=csrfToken)
           div
-            label Edit List:
-            input(type="text" name="name")
-            button(type='submit') Update
-            //- a(href=`/lists` role='button') Submit
+            label Pending:
+            //- p=list.name
+            button(type='submit') DELETE
