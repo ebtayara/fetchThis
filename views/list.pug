@@ -1,24 +1,18 @@
 extends layout.pug
 
 append head
-  //- add page specific styles by appending to the head
-  link(rel="stylesheet" href="/stylesheets/index.css")
-  //- add page specific js
-  //- script(src="/javascripts/index.js" type="module" defer)
+  link(rel="stylesheet" href="/stylesheets/lists.css")
 
 
 block content
-  h1
-  div(class="")
-    div(class="")
-      h2(class="") Current Lists
+  h1(class="listsTitle") Current Lists:
+    div(class="listsContainer")
+      h2(class="listsTitle")
       if lists
         each list in lists
-          p.name= list.name
-          a(href=`/lists/${list.id}/edit` role='button') Edit
-            //- button(type="submit") Edit
-          a(href=`/lists/${list.id}/delete` role='button') Delete
-          //- div(class="")
-          //-   p=list.name
-  div
+          div(class="listsFlexContainer")
+            p.name= list.name
+            a(href=`/lists/${list.id}/edit` role='button') Edit
+            a(href=`/lists/delete/${list.id}` role='button') DELETE
+  div(class="")
     a(href='/lists/add' role='button') Add
