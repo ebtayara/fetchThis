@@ -9,6 +9,7 @@ body {
 .summaryTitle{
     font-weight: bold;
     font-size: 40px;
+    opacity: 0.70;
 }
 .summaryFlexContainer{
     display:flex;
@@ -17,8 +18,7 @@ body {
 
 .summaryPendingFlexChild {
     border: 0.5px solid grey;
-    /* background-color: #DEF6CA; */
-     background-color: #A7C957;
+    background-color: #A7C957;
     border-radius: 10px;
     width: 45%;
     margin: 10px;
@@ -26,17 +26,25 @@ body {
 }
 
 .summaryPendingTaskHeader{
-    color: #bc4749;
+    /* color: #bc4749; */
+    color: #3D3A4B;
 }
 
+.fetchThisPendingImg {
+    display:flex;
+    justify-content: flex-start;
+    height: 150px;
+    width: 150px;
+    margin: auto;
+    max-width: 375px;
+    opacity: 0.75;
+}
 .summaryPendingTaskContainer{
     border: 0.5px solid grey;
     border-radius: 10px;
     background-color:#DEF6CA;
-    /* background-color: #A7C957; */
     margin: 10px 0;
     padding: 10px;
-
 }
 .summaryCompletedFlexChild {
     border: 0.5px solid grey;
@@ -48,6 +56,16 @@ body {
 }
 .summaryCompletedTaskHeader{
     color:black;
+    opacity: 0.75;
+}
+.fetchThisCompletedImg {
+    display:flex;
+    justify-content: flex-start;
+    height: 150px;
+    width: 150px;
+    margin: auto;
+    max-width: 375px;
+    opacity: 0.75;
 }
 .summaryCompletedTaskContainer{
     border: 0.5px solid grey;
@@ -59,4 +77,13 @@ body {
 .summaryTitle{
     text-align:center;
     margin: 10px;
+}
+.fetchThisImg {
+    height: 150px;
+    width: 375px;
+    margin: auto;
+    max-width: 375px;
+}
+.footer{
+    padding: 10px;
 }
