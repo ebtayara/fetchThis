@@ -13,18 +13,24 @@ body {
     display:flex;
     justify-content: space-around;
 } */
-.checkbox{
+/* .checkbox{
     margin: 10px;
     padding: 10px;
+} */
+.addButton{
+    justify-content: center;
+    align-self: center;
 }
+
 .tasksTitle{
     text-align:center;
     margin: 10px;
 }
 
-.tasksFlexContainer {
+.tasksFlexContainer{
     display:flex;
     justify-content: space-around;
+    align-items: center;
     border: 0.5px solid grey;
     background-color: #548c2f;
     border-radius: 10px;
@@ -34,10 +40,11 @@ body {
 }
 
 .tasksContainer{
+    display: flex;
+    justify-content: center;
     border: 0.5px solid grey;
     border-radius: 10px;
     background-color:#DEF6CA;
     margin: 10px 0;
     padding: 10px;
-
 }
