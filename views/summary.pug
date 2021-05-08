@@ -5,21 +5,40 @@ append head
   //- add page specific js
 //-   script(src="/javascripts/index.js" type="module" defer)
 block content
+  div(class="imageContainer")
+      a(href="/tasks")
+        img(src="/fetchThis.png" class = "fetchThisImg")
   h1(class="summaryTitle") Task Summary
   div(class="summaryFlexContainer")
     div(class="summaryPendingFlexChild")
       h2(class="summaryPendingTaskHeader") Pending Tasks
-      each task in tasks
-        if !task.completed
-          div(class="summaryPendingTaskContainer")
-            p=task.name
-            p=task.description
+      if !tasks.length
+        div(class="summaryPendingTaskContainerEmpty")
+          a(href="/")
+            img(src="/favicon.ico" class = "fetchThisPendingImg")
+      else
+        each task in tasks
+          if !task.completed
+            div(class="summaryPendingTaskContainer")
+              p=task.name
+              p=task.description
     div(class="summaryCompletedFlexChild")
       h2(class="summaryCompletedTaskHeader") Completed Tasks
+      if !tasks.length
+        div(class="summaryCompletedTaskContainerEmpty")
+          a(href="/")
+            img(src="/pic1.png" class = "fetchThisCompletedImg")
+      else
       each task in tasks
         if task.completed
           div(class="summaryCompletedTaskContainer")
             p=task.name
             p=task.description
-    form(action="/summary" method="post")
-      button(type="submit") Test Submit
+  div(class="footer") Fetch more information?
+      div(class="navFooterContainer")
+        a(href="/demoUser") Try Our Demo
+        a(href="/fetchThisTeam") fetchThis Team
+        //- a(href="/jobs") Job
+        //- a(href="/contact") Contact us
+        //- a(href="/getStarted") Get Started
+        //- a(href="/help") Help
