@@ -4,7 +4,7 @@ append head
     link(rel="stylesheet" href="/stylesheets/main.css")
 block content
     body
-        form(action=`/tasks/${task.id}/edit` method='post')
+        form(action=`/tasks/${task.id}/edit` method='POST')
             input(type='hidden', name='_csrf', value=csrfToken)
             label Edit Task:
             input(type="text" name="name")

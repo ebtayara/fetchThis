@@ -1,5 +1,6 @@
 const addButton = document.getElementById('addButton');
 const text = document.getElementById('textarea');
+
 // const divToAddToo = document.querySelector('#tasksFlex')
 
 //check to see if checkbox is checked
@@ -34,7 +35,12 @@ const text = document.getElementById('textarea');
 addButton.addEventListener('click', async(e) => {
     const taskValue = text.value
     console.log('warren wants to see this', taskValue)
-    let res = await fetch('/tasks/add', { method: 'POST', body: JSON.stringify({taskValue})})
+    let res = await fetch('/tasks', {  method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({taskValue})})
+    if(res.ok) {
+        window.location.href = '/tasks'
+    }
 });
-
-//post request to backend to fetch task data
