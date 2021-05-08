@@ -4,6 +4,12 @@
   align-items: center;
   font-weight: bold;
   justify-content: space-between;
+  flex-wrap:wrap;
+  cursor: pointer;
+  background-color: honeydew;
+  text-decoration: none;
+  border-radius: 8px;
+
   /* width: 100%; */
 }
 
@@ -12,10 +18,26 @@
   top: 0;
   width: 100%;
   left: 0;
-  height: 100px;
+  height: 95px;
   background-color: #B4A0E5;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   padding: 10px;
   border: 2px solid grey;
+  flex-wrap: wrap;
+}
+
+.navSearchContainer {
+
+}
+
+.navSearchBar {
+  margin: auto;
+}
+
+.homeBtn {
+  height: 40px;
+  width: 40px;
+  margin: auto;
+  max-width: 40px;
 }
