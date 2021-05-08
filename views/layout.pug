@@ -4,23 +4,26 @@ html
       block head
         title="fetchThis"
         link(rel='stylesheet' href='/stylesheets/main.css')
+        script(src='/javascripts/navbarSearchJsCode.js' type='module' defer)
   body
     nav(class="bar")
-      form(action='/' method='get')
-          button(class='btn' type='submit') Home
+      a(href='/')
+        img(src='/kennel.png' class='homeBtn')
+        div Home
       if locals.authenticated
-        span(class='navbar-text px-4') Welcome #{user.username}!
+        span(class='navbarText') Welcome #{user.username}!
         form(action='/users/logout' method='post')
           button(class='btn' type='submit') Logout
         form(action='/tasks' method='get')
-          button(class='navBtn' type='submit') Create/View Tasks
+          button(class='btn' type='submit') Create/View Tasks
         form(action='/summary' method='get')
-          button(class='navBtn' type='submit') Your Task Summary
+          button(class='btn' type='submit') Task Summary
         form(action='/lists' method='get')
-          button(class='navBtn' type='submit') Your Task Lists
-        form(action='/tasks/search' method='post')
-          input(type='text')
-          button(class='navBtn' type='submit') Search for Tasks
+          button(class='btn' type='submit') Task Lists
+        div(class='navSearchContainer')
+          form(action='/search' method='get')
+          input(type='text' placeholder="Search for tasks..." id="navBarJS" class="navSearchBar")
+          button(type='submit' id='navBarSearchButton' class='navSearchBar') Fetch!
       else
         span(class='homepageNav')
         form(action='/users/login' method='get')

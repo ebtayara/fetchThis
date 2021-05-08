@@ -37,6 +37,7 @@ body {
     scroll-behavior: smooth;
     scroll-snap-type: y mandatory;
     scroll-snap-align: center;
+    width: 100%;
 }
 
 .test {
@@ -46,9 +47,9 @@ body {
 }
 
 .footer {
-  /* position: absolute; */
+  position: fixed;
   height: 80px;
-  /* bottom: 0px; */
+  bottom: 0px;
   width: 100%;
   background-color: #A7c957;
   color: #bc4249;
@@ -124,10 +125,10 @@ h2 {
     position: static;
 }
 
-.headers {
-
-}
-
 figure {
     padding-top: 20px;
+}
+
+.navbarText {
+    text-decoration: underline;
 }
