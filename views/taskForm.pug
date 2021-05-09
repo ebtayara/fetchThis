@@ -6,26 +6,26 @@ append head
 block content
     input(type='hidden' name='_csrf' value=csrfToken)
     h1(class="tasksTitle") Add A New Task
-    div(class="addTaskForm")
-        //- form(action='/tasks/add' method='POST')
-        //- input(type='hidden', name='_csrf', value=csrfToken)
-        div
-            input(type="text"  id="name" placeholder="Add a Task..." class="addTaskName")
-        div
-            textarea(id='description' type='text' class='taskTextContainer' placeholder='Task Description')
-        div
-            select(class="taskListSelection" value=taskList[0].id id="list")
-                each list in taskList
-                    option(value=list.id)=list.name
-        div
-            button(id='addButton' type='submit' class='addButton') Add
-    each task in tasks
-        div(class="tasksContainer")
-            div(class="tasksFlexContainer")
+            div(class="addTaskForm")
+                //- form(action='/tasks/add' method='POST')
+                //- input(type='hidden', name='_csrf', value=csrfToken)
                 div
-                    h3=task.name
-                    if task.description
-                        p=task.description
+                    input(type="text"  id="name" placeholder="Add a Task..." class="addTaskName")
+                div
+                    textarea(id='description' type='text' class='taskTextContainer' placeholder='Task Description')
+                div
+                    select(class="taskListSelection" value=taskList[0].id id="list")
+                        each list in taskList
+                            option(value=list.id)=list.name
+                div
+                    button(id='addButton' type='submit' class='addButton') Add
+            each task in tasks
+                div(class="tasksContainer")
+                    div(class="tasksFlexContainer")
+                        div
+                            h3=task.name
+                            if task.description
+                                p=task.description
                 a(href=`/tasks/${task.id}/delete`) Remove
                     //- button(type='submit' class='removeButton') Remove
                 a(href=`/tasks/${task.id}`)

@@ -18,7 +18,7 @@ router.get(
       }
     })
     );
-    
+
     const taskNotFoundError = (id) => {
       const err = Error(`Task with id of ${id} could not be found.`);
       err.title = "Task not found.";
@@ -49,12 +49,26 @@ router.post(
   asyncHandler(async (req, res, next) => {
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
-    const { name } = req.body
+    const { name, description } = req.body
     if (task) {
-      await task.update({ name });
+      await task.update({ name:name, description:description });
       res.redirect('/tasks')
     } else {
       next(listNotFoundError(taskId));
+    }
+  })
+);
+
+router.post(
+  '/:id:complete', requireAuth,
+  asyncHandler(async (req, res, next) => {
+    const { name } = req.body
+    // console.log(typeof req.session.auth.userId)
+    // console.log(res.locals.user.id)
+    await Task.create({ name:name, description:description
+    ,userId: res.locals.user.id, listId: listId, completed: false })
+    if(completed) {
+      res.redirect('/summary')
     }
   })
 );
