@@ -1,8 +1,8 @@
 const express = require("express");
 const db = require('../db/models');
-console.log(db.dataValues)
+// console.log(db.dataValues)
 const { List, Task, User } = db;
-console.log(List)
+// console.log(List)
 const { csrfProtection, asyncHandler } = require('../utils');
 const {requireAuth, restoreUser} = require('../auth');
 const { Session } = require("express-session");
@@ -17,11 +17,11 @@ router.get(
   "/", requireAuth,
   asyncHandler(async (req, res, next) => {
     const lists = await List.findAll({
-      where : { userId: req.session.auth.userId }
+      where : { userId: req.session.auth.userId } ,
+      include:Task
     });
-
       if (lists) {
-          res.render('list', { lists });
+          res.render('list', { "lists":lists });
       } else {
           next(listNotFoundError(listId));
       }
