@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require('../db/models');
-const { Task } = db;
+const { Task, List } = db;
 const { csrfProtection, asyncHandler } = require('../utils');
 const {requireAuth} = require('../auth');
 
@@ -10,9 +10,10 @@ router.get(
   '/', requireAuth,
   asyncHandler(async (req, res, next) => {
       const tasks = await Task.findAll( {where: {userId:req.session.auth.userId}} );
+      const taskList = await List.findAll({where: {userId:req.session.auth.userId}})
       if (tasks) {
           // res.json({ tasks });
-          res.render('taskForm',{ 'tasks': tasks });
+          res.render('taskForm',{ 'tasks': tasks , 'taskList': taskList});
       } else {
           next(taskNotFoundError(taskId));
       }
@@ -27,32 +28,37 @@ router.get(
     };
 
 router.post('/', asyncHandler(async(req, res, next) => {
-  const {taskValue} = req.body
+  const {name, description, listId} = req.body
   // console.log(typeof req.session.auth.userId)
   // console.log(res.locals.user.id)
-  await Task.create({ name: taskValue, description: '',
-  userId: res.locals.user.id, listId: 1, completed: false })
+  await Task.create({ name:name, description:description
+  ,userId: res.locals.user.id, listId: listId, completed: false })
   res.redirect('back');
 }));
 
 router.get(
-  '/:id', requireAuth,
+  '/:id(\\d+)/edit', requireAuth,
   asyncHandler(async (req, res, next) => {
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
+    // console.log(taskId,'hi from EDIT FORM 🙂')
     res.render('editTask', { task })
   })
 )
 
 router.post(
-  '/:id/edit', requireAuth,
+  '/:id(\\d+)/edit', requireAuth,
   asyncHandler(async (req, res, next) => {
     const taskId = parseInt(req.params.id, 10);
+    // console.log(taskId);
     const task = await Task.findByPk(taskId);
-    const { name } = req.body
+    // const { name } = req.body
+    const {name, description} = req.body
+    console.log(name, description, '🤓')
     if (task) {
-      await task.update({ name });
-      // console.log(list)
+      // await task.update({ name });
+       await task.update({  name:name, description:description
+  ,userId: res.locals.user.id, completed: false  });
       res.redirect('/tasks')
     } else {
       next(listNotFoundError(taskId));
@@ -60,7 +66,7 @@ router.post(
   })
 );
 
-router.get('/:id/delete', requireAuth,
+router.get('/:id(\\d+)/delete', requireAuth,
   asyncHandler(async (req, res) => {
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
@@ -68,12 +74,12 @@ router.get('/:id/delete', requireAuth,
   }));
 
 router.post(
-  '/:id/delete',requireAuth,
+  '/:id(\\d+)/delete',requireAuth,
   asyncHandler(async (req, res, next) => {
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
-    console.log(taskId)
-    console.log(task)
+    // console.log(taskId)
+    // console.log(task)
 
     if (task) {
       await task.destroy();

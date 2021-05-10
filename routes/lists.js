@@ -15,11 +15,11 @@ router.get(
   "/", requireAuth,
   asyncHandler(async (req, res, next) => {
     const lists = await List.findAll({
-      where : { userId: req.session.auth.userId }
+      where : { userId: req.session.auth.userId } ,
+      include:Task
     });
-
       if (lists) {
-          res.render('list', { lists });
+          res.render('list', { "lists":lists });
       } else {
           next(listNotFoundError(listId));
       }

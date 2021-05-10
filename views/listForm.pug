@@ -5,7 +5,6 @@ append head
   link(rel="stylesheet" href="/stylesheets/index.css")
   //- add page specific js
   //- script(src="/javascripts/index.js" type="module" defer)
-
 block content
     body
         form(action=`/lists/${list.id}/edit` method='post')
@@ -14,4 +13,4 @@ block content
             label Edit List:
             input(type="text" name="name")
             button(type='submit') Update
-            //- a(href=`/lists` role='button') Submit
+            a(href=`/lists` role='button') Submit
