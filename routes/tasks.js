@@ -1,18 +1,18 @@
 const express = require("express");
 const db = require('../db/models');
-const { Task, List } = db;
+const { Task } = db;
 const { csrfProtection, asyncHandler } = require('../utils');
 const {requireAuth} = require('../auth');
+
 const router = express.Router();
 
 router.get(
   '/', requireAuth,
   asyncHandler(async (req, res, next) => {
       const tasks = await Task.findAll( {where: {userId:req.session.auth.userId}} );
-      const taskList = await List.findAll({where: {userId:req.session.auth.userId}})
       if (tasks) {
           // res.json({ tasks });
-          res.render('taskForm',{ 'tasks': tasks , 'taskList': taskList});
+          res.render('taskForm',{ 'tasks': tasks });
       } else {
           next(taskNotFoundError(taskId));
       }
@@ -27,11 +27,11 @@ router.get(
     };
 
 router.post('/', asyncHandler(async(req, res, next) => {
-  const {name, description, listId} = req.body
+  const {taskValue} = req.body
   // console.log(typeof req.session.auth.userId)
   // console.log(res.locals.user.id)
-  await Task.create({ name:name, description:description
-  ,userId: res.locals.user.id, listId: listId, completed: false })
+  await Task.create({ name: taskValue, description: '',
+  userId: res.locals.user.id, listId: 1, completed: false })
   res.redirect('back');
 }));
 
@@ -49,26 +49,13 @@ router.post(
   asyncHandler(async (req, res, next) => {
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
-    const { name, description } = req.body
+    const { name } = req.body
     if (task) {
-      await task.update({ name:name, description:description });
+      await task.update({ name });
+      // console.log(list)
       res.redirect('/tasks')
     } else {
       next(listNotFoundError(taskId));
-    }
-  })
-);
-
-router.post(
-  '/:id:complete', requireAuth,
-  asyncHandler(async (req, res, next) => {
-    const { name } = req.body
-    // console.log(typeof req.session.auth.userId)
-    // console.log(res.locals.user.id)
-    await Task.create({ name:name, description:description
-    ,userId: res.locals.user.id, listId: listId, completed: false })
-    if(completed) {
-      res.redirect('/summary')
     }
   })
 );
@@ -87,6 +74,7 @@ router.post(
     const task = await Task.findByPk(taskId);
     console.log(taskId)
     console.log(task)
+
     if (task) {
       await task.destroy();
       res.redirect('/tasks')
