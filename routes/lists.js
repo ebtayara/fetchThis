@@ -1,8 +1,6 @@
 const express = require("express");
 const db = require('../db/models');
-console.log(db.dataValues)
 const { List, Task, User } = db;
-console.log(List)
 const { csrfProtection, asyncHandler } = require('../utils');
 const {requireAuth, restoreUser} = require('../auth');
 const { Session } = require("express-session");
