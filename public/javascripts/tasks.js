@@ -1,5 +1,10 @@
 const addButton = document.getElementById('addButton');
-const text = document.getElementById('textarea');
+const description = document.getElementById('description');
+const taskName = document.getElementById('name');
+const taskList = document.getElementById('list');
+const taskEditButtons = document.getElementsByClassName('editButton');
+
+// console.log(description, "description 🎾")
 
 // const divToAddToo = document.querySelector('#tasksFlex')
 
@@ -33,13 +38,17 @@ const text = document.getElementById('textarea');
 // });
 
 addButton.addEventListener('click', async(e) => {
-    const taskValue = text.value
-    console.log('warren wants to see this', taskValue)
+    const taskDescriptionValue = description.value;
+    const taskNameValue = taskName.value;
+    const listId = taskList.value;
+    // console.log('warren wants to see this', taskValue)
+    // console.log(description,"description🙂")
+    // console.log(taskDescriptionValue, "⏰");
     let res = await fetch('/tasks', {  method: 'POST',
     headers: {
         'Content-Type': 'application/json'
     },
-    body: JSON.stringify({taskValue})})
+    body: JSON.stringify({"name":taskNameValue, "description":taskDescriptionValue, "listId":listId})});
     if(res.ok) {
         window.location.href = '/tasks'
     }

@@ -6,6 +6,8 @@ block content
     body
         form(action=`/tasks/${task.id}/edit` method='POST')
             input(type='hidden', name='_csrf', value=csrfToken)
-            label Edit Task:
-            input(type="text" name="name")
-            button(type='submit' role='button') Submit
+            label(for="name") Name
+            input(type="text" value=task.name id="name" name="name")
+            label(for="description") Description
+            input(type="text" value=task.description id="description" name="description")
+            input(type="submit" value="submit")

@@ -24,7 +24,11 @@ body {
 .addButton{
     justify-content: center;
     align-self: center;
+<<<<<<< HEAD
     width: 50px;
+=======
+    width: 50%;
+>>>>>>> main
     margin: 10px;
     font-size: 1.02em;
     padding: 5px;
@@ -38,6 +42,7 @@ body {
     justify-content: space-around;
     align-items: center;
     border: 0.5px solid grey;
+    /* background-color: #548c2f; */
     background-color:#DEF6CA;
     border-radius: 10px;
     width: 45%;
@@ -54,6 +59,7 @@ body {
     border: 0.5px solid grey;
     background-color: #A7C957;
     border-radius: 10px;
+<<<<<<< HEAD
     width: 100%;
     margin: 10px;
     padding: 10px;
@@ -65,6 +71,28 @@ body {
 }
 .addTaskName, .taskTextContainer, .taskListSelection{
     width: 300px;
+    margin: 10px;
+    font-size: 1.2em;
+    /* border: 0; */
+=======
+    background-color: #548c2f;
+    /* background-color:#DEF6CA; */
+    margin: 10px 0;
+>>>>>>> main
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.addTaskForm{
+    width: 300px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.addTaskName,
+.taskTextContainer,
+.taskListSelection {
+    width: 100%;
     margin: 10px;
     font-size: 1.2em;
     /* border: 0; */
