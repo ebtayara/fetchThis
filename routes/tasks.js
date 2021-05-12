@@ -54,7 +54,7 @@ router.post(
     const task = await Task.findByPk(taskId);
     // const { name } = req.body
     const {name, description} = req.body
-    console.log(name, description, '🤓')
+    // console.log(name, description, '🤓')
     if (task) {
       // await task.update({ name });
        await task.update({  name:name, description:description

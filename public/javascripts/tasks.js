@@ -36,20 +36,23 @@ const taskEditButtons = document.getElementsByClassName('editButton');
 // addButton.addEventListener('click', e => {
 //     divToAddToo.innerHTML = text.innerHTML //also tried text.value
 // });
-
-addButton.addEventListener('click', async(e) => {
-    const taskDescriptionValue = description.value;
-    const taskNameValue = taskName.value;
-    const listId = taskList.value;
-    // console.log('warren wants to see this', taskValue)
-    // console.log(description,"description🙂")
-    // console.log(taskDescriptionValue, "⏰");
-    let res = await fetch('/tasks', {  method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({"name":taskNameValue, "description":taskDescriptionValue, "listId":listId})});
-    if(res.ok) {
-        window.location.href = '/tasks'
-    }
-});
+if (addButton !== null) {
+    addButton.addEventListener('click', async(e) => {
+        if (taskList !== null) {
+            const taskDescriptionValue = description.value;
+            const taskNameValue = taskName.value;
+            const listId = taskList.value;
+            // console.log('warren wants to see this', taskValue)
+            // console.log(description,"description🙂")
+            // console.log(taskDescriptionValue, "⏰");
+            let res = await fetch('/tasks', {  method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"name":taskNameValue, "description":taskDescriptionValue, "listId":listId})});
+            if(res.ok) {
+                window.location.href = '/tasks'
+            }
+        }
+    });
+}

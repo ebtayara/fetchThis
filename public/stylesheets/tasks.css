@@ -39,8 +39,8 @@ body {
     /* background-color: #548c2f; */
     background-color:#DEF6CA;
     border-radius: 10px;
-    width: 45%;
-    margin: 10px;
+    width: 100%;
+    /* margin: 10px 0; */
     padding: 10px;
 }
 
@@ -51,7 +51,7 @@ body {
     border-radius: 10px;
     background-color: #548c2f;
     /* background-color:#DEF6CA; */
-    margin: 10px 0;
+    margin: 10px 0px;
     padding: 10px;
 }
 
