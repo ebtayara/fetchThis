@@ -1,4 +1,4 @@
-# **Welcome to the fetchThi!**
+# **Welcome to the fetchThis!**
 
 fetchThis, a [Remember the Milk](https://rememberthemilk.com/) clone, is a media application that allows users to store detailed tasks that can be viewed, updated, and deleted.
 
