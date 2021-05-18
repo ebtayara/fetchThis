@@ -2,6 +2,8 @@
 
 fetchThis, a [Remember the Milk](https://rememberthemilk.com/) clone, is a media application that allows users to store detailed tasks that can be viewed, updated, and deleted.
 
+Come check us out at [fetchThis](fetchthis.herokuapp.com/)
+
 ## [**Feature List**](https://github.com/ebtayara/fetchThis/wiki/MVP-Feature-List)
 
 List of features needed for the minimum viable product, MVP
