@@ -1,0 +1,73 @@
+body {
+    background: #DEF6CA;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+/* .tasksContainer{
+    justify-content: space-around;
+}
+.tasksFlexContainer{
+    display:flex;
+    justify-content: space-around;
+} */
+/* .checkbox{
+    margin: 10px;
+    padding: 10px;
+} */
+.addButton{
+    justify-content: center;
+    align-self: center;
+    width: 50%;
+    margin: 10px;
+    font-size: 1.02em;
+    padding: 5px;
+}
+
+.tasksTitle{
+    text-align:center;
+    margin: 10px;
+}
+
+.tasksFlexContainer{
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 0.5px solid grey;
+    /* background-color: #548c2f; */
+    background-color:#DEF6CA;
+    border-radius: 10px;
+    width: 100%;
+    /* margin: 10px 0; */
+    padding: 10px;
+}
+
+.tasksContainer{
+    display: flex;
+    justify-content: center;
+    border: 0.5px solid grey;
+    border-radius: 10px;
+    background-color: #548c2f;
+    /* background-color:#DEF6CA; */
+    margin: 10px 0px;
+    padding: 10px;
+}
+
+.addTaskForm{
+    width: 300px;
+    margin: 10px auto;
+    text-align: center;
+}
+
+.addTaskName,
+.taskTextContainer,
+.taskListSelection {
+    width: 100%;
+    margin: 10px;
+    font-size: 1.2em;
+    /* border: 0; */
+    padding: 10px;
+    border-radius: 10px;
+}

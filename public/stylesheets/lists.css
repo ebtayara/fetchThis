@@ -1,0 +1,48 @@
+body {
+    background: #DEF6CA;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: center;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+.listsTitle{
+    text-align:center;
+    margin: 10px;
+}
+
+.listsFlexContainer {
+    display:flex;
+    justify-content: space-around;
+    border: 0.5px solid grey;
+    background-color: #B4A0E5;
+    /* background-color: #548c2f; */
+    /* background: #DEF6CA; */
+    border-radius: 10px;
+    width: 45%;
+    margin: 10px;
+    padding: 10px;
+}
+
+.listTaskFlexContainer {
+    display:flex;
+    justify-content: space-around;
+    border: 0.5px solid grey;
+    /* background-color: #B4A0E5; */
+    /* background-color: #548c2f; */
+    background-color:#DEF6CA;
+    border-radius: 10px;
+    width: 45%;
+    margin: 10px;
+    margin-left: 60px;
+    padding: 10px;
+}
+
+.listsContainer{
+    background-color: #a7c957;
+    border: 0.5px solid grey;
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 10px;
+}

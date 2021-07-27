@@ -1,0 +1,16 @@
+extends layout.pug
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/main.css")
+  //- add page specific js
+  //- script(src="/javascripts/index.js" type="module" defer)
+block content
+  body
+    div
+      p ARE YOU SURE YOU WANT TO DELETE THIS TASK???
+        form(action=`/tasks/${task.id}/delete` method='POST')
+          input(type='hidden' name='_csrf' value=csrfToken)
+          div
+            label Pending:
+            //- p=task.name
+            button(type='submit') DELETE

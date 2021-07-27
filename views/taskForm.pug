@@ -1,0 +1,42 @@
+
+extends layout.pug
+//- include utils.pug
+append head
+    link(rel="stylesheet" href="/stylesheets/main.css")
+    script(src="/javascripts/tasks.js" type="module" defer)
+block content
+    input(type='hidden' name='_csrf' value=csrfToken)
+    h1(class="tasksTitle") Add A New Task
+    div(class="addTaskForm")
+        if taskList.length === 0
+            div(class="taskContainerEmpty")
+                p Create a list first before adding a task
+                a(href="/tasks")
+                    img(src="/favicon.ico" class="fetchThisPendingImg")
+        else
+            input(type='hidden', name='_csrf', value=csrfToken)
+            div
+                input(type="text"  id="name" placeholder="Add a Task..." class="addTaskName")
+            div
+                textarea(id='description' type='text' class='taskTextContainer' placeholder='Enter The Description of the Task')
+            div
+                select(class="taskListSelection" value=taskList[0].id id="list")
+                    each list in taskList
+                        option(value=list.id)=list.name
+            div
+                button(id='addButton' type='submit' class='addButton') Add
+        each task in tasks
+            div(class="tasksContainer")
+                div(class="tasksFlexContainer" id=task.id)
+                    div
+                        h3=task.name
+                        if task.description
+                            p=task.description
+                    //- a(href=`/tasks/${task.id}/delete`) Remove
+                    form(action=`/tasks/${task.id}/delete` method="GET")
+                        button(type='submit' class='removeButton') Remove
+                    //- a(href=`/tasks/${task.id}/edit`) Edit
+                    form(action=`/tasks/${task.id}/edit` method="GET")
+                        button(type='submit' class='editButton') Edit
+                        //- a(href=`/summary`)
+                        //- button(type='submit' class='completeButton' ) Complete

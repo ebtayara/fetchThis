@@ -4,14 +4,18 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Lists', [
         { name:'Tyrion\'s List', userId:1,createdAt:new Date(), updatedAt:new Date() },
-        { name:'Ceviche\'s List', userId:2,createdAt:new Date(), updatedAt:new Date() }
+        { name:'Ceviche\'s List', userId:2,createdAt:new Date(), updatedAt:new Date() },
+        { name:'Test2 List', userId:2,createdAt:new Date(), updatedAt:new Date() },
+        { name:'Test3 List', userId:2,createdAt:new Date(), updatedAt:new Date() },
+        { name:'Test4 List', userId:2,createdAt:new Date(), updatedAt:new Date() },
+        { name:'Test5 List', userId:2,createdAt:new Date(), updatedAt:new Date() }
+
     ], {});
     /*
       Add altering commands here.
       Return a promise to correctly handle asynchronicity.
 
       Example:
-
     */
   },
 

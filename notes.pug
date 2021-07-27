@@ -1,0 +1,30 @@
+taskForm.pug
+extends layout.pug
+append head
+    link(rel="stylesheet" href="/stylesheets/main.css")
+//-     script(src="/javascripts/tasks.js" type="module" defer)
+block content
+  input(type='hidden' name='_csrf' value=csrfToken)
+  h1(class="tasksTitle") Tasks
+  div
+    if (tasks)
+      each task in tasks
+        div(class="tasksContainer")
+          div(class="tasksFlexContainer")
+            p=task.name
+            a(href=`/tasks/${task.id}/edit`) Edit Task
+
+
+editTask.pug
+extends layout.pug
+append head
+    link(rel="stylesheet" href="/stylesheets/main.css")
+block content
+    h1(class='editedTask') Edit Your Task
+    form(action=`/tasks/${task.id}/edit/` method='post')
+        label(for="name") Name
+        input(type="text" value=task.name id="name")
+        label(for="description") Description
+        input(type="text" value=task.description id="description")
+        input(type="submit" value="submit")
+        a(href='/tasks' class='cancelEdit') Back to Tasks

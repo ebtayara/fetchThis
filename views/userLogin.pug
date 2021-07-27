@@ -2,16 +2,17 @@ extends layout.pug
 
 
 block content
-  form(action='/users/login' method='post')
-    input(type='hidden' name='_csrf' value=csrfToken)
-    div
-      label(type='field' ) Email
-      input(type='text' name='email')
-    div
-    div
-      label(type='field' ) Password
-      input(type='text' name='hashedPassword')
-    div
-    div
-      button(type='submit' ) Login
-    div
+  div(class='formContainer')
+    form(action='/users/login' method='post')
+      input(type='hidden' name='_csrf' value=csrfToken)
+      h1(class="loginHeader") Login
+      div(class="loginOuterContainer")
+        div(class="loginInnerContainer")
+          div(class='form-group')
+            label(type='field' ) Email
+            input(type='text' name='email')
+          div(class='form-group')
+            label(type='field' ) Password
+            input(type='text' name='hashedPassword')
+          div(class="loginContainer")
+            button(type='submit' class="loginButton" ) Login

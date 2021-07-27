@@ -1,0 +1,17 @@
+extends layout.pug
+
+
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/index.css")
+  //- add page specific js
+  //- script(src="/javascripts/index.js" type="module" defer)
+
+block content
+  body
+    form(action=`/lists/add` method='post')
+          input(type='hidden' name='_csrf' value=csrfToken)
+          div
+            label Add List:
+            input(type="text" name="name")
+            button(type='submit') Create

@@ -1,0 +1,44 @@
+.aboutUsTitle {
+  font-weight: bold;
+  font-size: 40px;
+  text-align: center;
+  margin: 10px;
+}
+
+.aboutUsOuterContainer {
+  display: flex;
+  justify-content: space-around;
+}
+
+.aboutUsInnerContainer {
+  border: 0.5px solid grey;
+  background-color: #A7C957;
+  border-radius: 10px;
+  width: 45%;
+  margin: 10px;
+  padding: 10px;
+}
+
+.eachPerson {
+  border: 0.5px solid grey;
+  border-radius: 10px;
+  background-color:#DEF6CA;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  right: 50px;
+}
+
+.extraTitle {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.personPic {
+  height: 75px;
+  width: 75px;
+  margin: 10px;
+  border-radius: 50%;
+  border: 3px solid #B4A0E5;
+}

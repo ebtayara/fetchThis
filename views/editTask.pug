@@ -1,10 +1,13 @@
 extends layout.pug
-
-include utils.pug
-
+//- include utils.pug
+append head
+    link(rel="stylesheet" href="/stylesheets/main.css")
 block content
-    form(action=`/tasks/edit/${task.id}` method='post')
-        include taskForm.pug
-        div(class='py-4')
-            button(type='submit' class='btn btn-primary') Edit Task
-            a(href='/' class='btn btn-warning ml-2') Cancel
+    body
+        form(action=`/tasks/${task.id}/edit` method='POST')
+            input(type='hidden', name='_csrf', value=csrfToken)
+            label(for="name") Name
+            input(type="text" value=task.name id="name" name="name")
+            label(for="description") Description
+            input(type="text" value=task.description id="description" name="description")
+            input(type="submit" value="submit")

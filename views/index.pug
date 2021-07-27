@@ -7,5 +7,28 @@ append head
   script(src="/javascripts/index.js" type="module" defer)
 
 block content
-  h1= title
-  p Welcome to your Project Skeleton
+  body
+    div(class="imageContainer")
+      a(href="/")
+        img(src="/fetchThis.png" class = "fetchThisImg")
+      p(class="headerText") Remembering our Pets' needs, one fetch at a time!
+    div(class="main")
+      div(id="slider")
+        figure
+          div.headers
+            h2 Finding it hard to keep up with Fido's daily life?
+            img(src="/pic1.png")
+          div.headers
+            h2 Introducing fetchThis: A Web App to track your pets' needs.
+            img(src="/pic2.png")
+          div.headers
+            h2 Create & use tasks and lists to optimize your pet's day.
+            img(src="/pic3.png")
+  div(class="footer")
+    div(class="navFooterContainer")
+      a(href="/aboutUs") About us/Contact us
+      a © 2021 fetchThis
+        //- ul(class="navFooter")
+        //-   div(class="navFooterContainer")
+        //-     a(href="/help") Help
+        //-     a(href="/vip") VIP Pet Club

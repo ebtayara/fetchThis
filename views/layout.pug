@@ -2,7 +2,32 @@ doctype html
 html
   head
       block head
-        title="Express Starter App"
-        link(rel='stylesheet' href='/stylesheets/reset.css')
+        title="fetchThis"
+        link(rel='stylesheet' href='/stylesheets/main.css')
+        script(src='/javascripts/navbarSearchJsCode.js' type='module' defer)
   body
+    nav(class="bar")
+      a(href='/')
+        img(src='/kennel.png' class='homeBtn')
+        div Home
+      if locals.authenticated
+        span(class='navbarText') Welcome #{user.username}!
+        form(action='/users/logout' method='post')
+          button(class='btn' type='submit') Logout
+        form(action='/tasks' method='get')
+          button(class='btn' type='submit') Create/View Tasks
+        form(action='/summary' method='get')
+          button(class='btn' type='submit') Task Summary
+        form(action='/lists' method='get')
+          button(class='btn' type='submit') Task Lists
+        div(class='navSearchContainer')
+          form(action='/search' method='get')
+          input(type='text' placeholder="Search for tasks..." id="navBarJS" class="navSearchBar")
+          button(type='submit' id='navBarSearchButton' class='navSearchBar') Fetch!
+      else
+        span(class='homepageNav')
+        form(action='/users/login' method='get')
+          button(class='btn' type='submit') Login
+        form(action='/users/signUp' method='get')
+          button(class='btn' type='submit') Sign Up
     block content

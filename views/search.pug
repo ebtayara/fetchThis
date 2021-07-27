@@ -1,0 +1,29 @@
+extends layout.pug
+append head
+  //- add page specific styles by appending to the head
+  link(rel="stylesheet" href="/stylesheets/main.css")
+  script(src='/javascripts/searchJsCode.js' type='module' defer)
+  //- add page specific js
+//-   script(src="/javascripts/index.js" type="module" defer)
+block content
+  h1(class="searchTitle") Task search
+  div(class="searchBox")
+    form(action="/search" method="get")
+    input(type="text" placeholder="Search for tasks..." id="searchBarJS")
+    button(type="submit" id="searchButton") Fetch!
+  div(class="searchFlexContainer")
+    div(class="searchPendingFlexChild")
+      h2(class="searchPendingTaskHeader") Your Tasks
+      each task in tasks
+        if !task.completed
+          div(class="searchPendingTaskContainer")
+            a(href="/summary")
+              p=task.name
+            //- p=task.description
+    //- div(class="searchCompletedFlexChild")
+    //-   h2(class="searchCompletedTaskHeader") Completed Tasks
+    //-   each task in tasks
+    //-     if task.completed
+    //-       div(class="searchCompletedTaskContainer")
+    //-         p=task.name
+    //-         p=task.description
