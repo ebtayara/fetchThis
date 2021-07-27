@@ -3,6 +3,7 @@ const description = document.getElementById('description');
 const taskName = document.getElementById('name');
 const taskList = document.getElementById('list');
 const taskEditButtons = document.getElementsByClassName('editButton');
+const completeButton = document.getElementsByClassName('completeButton');
 
 // console.log(description, "description 🎾")
 
@@ -16,9 +17,23 @@ const taskEditButtons = document.getElementsByClassName('editButton');
 //     //route to completed task in summary page?
 // }
 
-// textarea.addEventListener('click', e => {
-//     textarea.hide();
-// });
+completeButton.addEventListener('click', e => {
+    console.log('EEE🙂',e)
+    console.log('taskList🙂',taskList)
+    if (taskList !== null) {
+        const completedTask = true;
+
+        let res = await fetch('/tasks', {  method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"completed":completedTask})});
+        if(res.ok) {
+            console.log("HELLO!😮")
+            window.location.href = '/tasks'
+        }
+    }
+});
 
 // addButton.addEventListener('click', e => {
 //     const button = e.target.id === 'addButton';
@@ -42,7 +57,7 @@ if (addButton !== null) {
             const taskDescriptionValue = description.value;
             const taskNameValue = taskName.value;
             const listId = taskList.value;
-            // console.log('warren wants to see this', taskValue)
+            console.log('warren wants to see this', taskValue)
             // console.log(description,"description🙂")
             // console.log(taskDescriptionValue, "⏰");
             let res = await fetch('/tasks', {  method: 'POST',
