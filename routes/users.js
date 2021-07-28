@@ -16,34 +16,21 @@ router.get('/login', csrfProtection, (req, res) => {
   });
 });
 
-router.post('/demoTyrion', csrfProtection, asyncHandler(async(req, res) => {
+router.post('/demoTyrion', asyncHandler(async(req, res) => {
 
-  console.log('HELLO DEMO!')
-
-  // return {}
-
-  const {
-    email
-  } = req.body;
-  // console.log(req.body);
-  const user = await db.User.findOne({ where: "Tyrion@dobermans.com" });
-
+  const user = await db.User.findByPk(1);
 
   loginUser(req, res, user);
   return req.session.save(() => res.redirect("/"))
 }));
 
-router.post('/demoCeviche', csrfProtection, asyncHandler(async(req, res) => {
+router.post('/demoCeviche', asyncHandler(async(req, res) => {
 
-  console.log('HELLO DEMO!')
-
-  const {
-    email,
-  } = req.body;
-  // console.log(req.body);
-  const user = await db.User.findOne({ where: "Ceviche@cats.com" });
+  const user = await db.User.findByPk(2);
+  console.log(user, 'USERRRRRRRRR')
 
   loginUser(req, res, user);
+  // res.redirect('/')
   return req.session.save(() => res.redirect("/"));
 
 }));
