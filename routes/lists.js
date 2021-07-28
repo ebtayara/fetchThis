@@ -11,9 +11,7 @@ const router = express.Router();
 
 
 
-router.get(
-  "/", requireAuth,
-  asyncHandler(async (req, res, next) => {
+router.get("/", requireAuth, asyncHandler(async (req, res, next) => {
     const lists = await List.findAll({
       where : { userId: req.session.auth.userId } ,
       include:Task
@@ -35,9 +33,7 @@ const listNotFoundError = (id) => {
 };
 
 
-router.get(
-  "/:id(\\d+)/edit", requireAuth,
-  asyncHandler(async (req, res, next) => {
+router.get("/:id(\\d+)/edit", requireAuth, asyncHandler(async (req, res, next) => {
     const listId = parseInt(req.params.id, 10);
     const list = await List.findByPk(listId);
 
@@ -46,9 +42,7 @@ router.get(
 )
 
 
-router.post(
-  "/:id(\\d+)/edit", requireAuth,
-  asyncHandler(async (req, res, next) => {
+router.post("/:id(\\d+)/edit", requireAuth, asyncHandler(async (req, res, next) => {
     const listId = parseInt(req.params.id, 10);
     const list = await List.findByPk(listId);
 
@@ -64,9 +58,7 @@ router.post(
 );
 
 
-router.get(
-  "/add", requireAuth,
-  asyncHandler(async (req, res, next) => {
+router.get("/add", requireAuth, asyncHandler(async (req, res, next) => {
     const lists = await List.findAll({
       where : { userId: req.session.auth.userId }
     });
@@ -89,15 +81,14 @@ asyncHandler(async (req, res) => {
 }));
 
 
-router.get('/delete/:id(\\d+)', requireAuth,
-asyncHandler(async (req, res) => {
+router.get('/delete/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
   const listId = parseInt(req.params.id, 10);
   const list = await List.findByPk(listId);
   res.render('listDelete', { list });
 }));
 
-router.post('/delete/:id(\\d+)', requireAuth,
-  asyncHandler(async (req, res) => {
+
+router.post('/delete/:id(\\d+)', requireAuth, asyncHandler(async (req, res) => {
     const listId = parseInt(req.params.id, 10);
     const list = await List.findByPk(listId);
 
@@ -109,9 +100,6 @@ router.post('/delete/:id(\\d+)', requireAuth,
     }
 }));
 
-// user logs in with credentials
-// user should be able to see all of their lists
-// user should be able to add, edit and delete a list
 
 
 module.exports = router;
