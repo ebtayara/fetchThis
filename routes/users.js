@@ -4,6 +4,7 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 
 const db = require('../db/models');
+const { User } = require('../db/models/user');
 const { csrfProtection, asyncHandler } = require('../utils');
 
 const { loginUser, logoutUser } = require('../auth');
@@ -14,6 +15,48 @@ router.get('/login', csrfProtection, (req, res) => {
     csrfToken: req.csrfToken(),
   });
 });
+
+router.post('/demoTyrion', csrfProtection, asyncHandler(async(req, res) => {
+
+  console.log('HELLO DEMO!')
+
+  // return {}
+
+  const {
+    email
+  } = req.body;
+  // console.log(req.body);
+  const user = await db.User.findOne({ where: "Tyrion@dobermans.com" });
+
+
+  loginUser(req, res, user);
+  return req.session.save(() => res.redirect("/"))
+}));
+
+router.post('/demoCeviche', csrfProtection, asyncHandler(async(req, res) => {
+
+  console.log('HELLO DEMO!')
+
+  const {
+    email,
+  } = req.body;
+  // console.log(req.body);
+  const user = await db.User.findOne({ where: "Ceviche@cats.com" });
+
+  loginUser(req, res, user);
+  return req.session.save(() => res.redirect("/"));
+
+}));
+
+
+  // const demo = await User.findByPk(2)
+  // console.log(demo, 'heyyyyy is this Ceviche?')
+
+  // res.render('userLogin', {
+  //   title: 'Login',
+  //   csrfToken: req.csrfToken(),
+  // });
+// });
 
 const loginValidators = [
   check('email')
