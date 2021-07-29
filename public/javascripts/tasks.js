@@ -17,23 +17,23 @@ const completeButton = document.getElementsByClassName('completeButton');
 //     //route to completed task in summary page?
 // }
 
-completeButton.addEventListener('click', e => {
-    console.log('EEE🙂',e)
-    console.log('taskList🙂',taskList)
-    if (taskList !== null) {
-        const completedTask = true;
+// completeButton.addEventListener('click',  async e => {
+//     console.log('EEE🙂',e)
+//     console.log('taskList🙂',taskList)
+//     if (taskList !== null) {
+//         const completedTask = true;
 
-        let res = await fetch('/tasks', {  method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({"completed":completedTask})});
-        if(res.ok) {
-            console.log("HELLO!😮")
-            window.location.href = '/tasks'
-        }
-    }
-});
+//         let res = await fetch('/tasks', {  method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({"completed":completedTask})});
+//         if(res.ok) {
+//             console.log("HELLO!😮")
+//             window.location.href = '/tasks'
+//         }
+//     }
+// });
 
 // addButton.addEventListener('click', e => {
 //     const button = e.target.id === 'addButton';
@@ -66,7 +66,7 @@ if (addButton !== null) {
             },
             body: JSON.stringify({"name":taskNameValue, "description":taskDescriptionValue, "listId":listId})});
             if(res.ok) {
-                window.location.href = '/tasks'
+                window.location.href = '/lists'
             }
         }
     });

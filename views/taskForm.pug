@@ -24,6 +24,7 @@ block content
                     each list in taskList
                         option(value=list.id)=list.name
             div
+             form(action=`/tasks` method="POST")
                 button(id='addButton' type='submit' class='addButton') Add
         each task in tasks
             div(class="tasksContainer")
