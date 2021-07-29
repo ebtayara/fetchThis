@@ -33,7 +33,7 @@ router.post('/', asyncHandler(async(req, res, next) => {
   // console.log(res.locals.user.id)
   await Task.create({ name:name, description:description
   ,userId: res.locals.user.id, listId: listId, completed: false })
-  res.redirect('back');
+  res.redirect('/lists');
 }));
 
 router.get(
@@ -60,6 +60,32 @@ router.post(
        await task.update({  name:name, description:description
   ,userId: res.locals.user.id, completed: false  });
       res.redirect('/tasks')
+    } else {
+      next(listNotFoundError(taskId));
+    }
+  })
+);
+
+router.get(
+  '/:id(\\d+)/completeTask', requireAuth,
+  asyncHandler(async (req, res, next) => {
+    const taskId = parseInt(req.params.id, 10);
+    const task = await Task.findByPk(taskId);
+    console.log(taskId,'hi from EDIT FORM 🙂')
+    res.render('list', { task })
+  })
+)
+
+router.post(
+  '/:id(\\d+)/completeTask', requireAuth,
+  asyncHandler(async (req, res, next) => {
+    const taskId = parseInt(req.params.id, 10);
+    console.log('🎾taskId', taskId);
+    const task = await Task.findByPk(taskId);
+
+    if (task) {
+       await task.update({ completed:true });
+      res.redirect('/lists')
     } else {
       next(listNotFoundError(taskId));
     }

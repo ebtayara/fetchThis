@@ -27,7 +27,11 @@ block content
                       //- button(type='submit' class='removeButton') Remove
                   a(href=`/tasks/${task.id}`)
                       //- button(type='submit' class='editButton') Edit
-                  a(href=`/summary`)
-                      button(type='submit' class='completeButton') Complete
+                      //-  value = list.Tasks.task.id.completed = true
+                      //- button( type='submit' class='completeButton' value = list.Tasks.task.id.completed = true ) Complete
+                  a(href=`/tasks/${task.id}/completeTask`)
+                      //- button(type='submit' class='completeButton') Complete
+                      form(action=`/tasks/${task.id}/completeTask` method='POST')
+                        button( type='submit' class='completeButton' value=task.completed ) Complete
   div(class="")
     a(href='/lists/add' role='button') Add

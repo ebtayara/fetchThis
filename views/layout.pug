@@ -13,7 +13,7 @@ html
       if locals.authenticated
         span(class='navbarText') Welcome #{user.username}!
         form(action='/lists' method='get')
-          button(class='btn' type='submit') Create Lists
+          button(class='btn' type='submit') Your Lists
         form(action='/summary' method='get')
           button(class='btn' type='submit') Task Summary
         form(action='/users/logout' method='post')
