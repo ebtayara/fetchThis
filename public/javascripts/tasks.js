@@ -53,13 +53,14 @@ const completeButton = document.getElementsByClassName('completeButton');
 // });
 if (addButton !== null) {
     addButton.addEventListener('click', async(e) => {
+        e.preventDefault()
         if (taskList !== null) {
             const taskDescriptionValue = description.value;
             const taskNameValue = taskName.value;
             const listId = taskList.value;
-            console.log('warren wants to see this', taskValue)
+            // console.log('⏰taskNameValue', taskNameValue)
             // console.log(description,"description🙂")
-            // console.log(taskDescriptionValue, "⏰");
+            // console.log(taskDescriptionValue, "");
             let res = await fetch('/tasks', {  method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
