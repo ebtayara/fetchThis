@@ -14,18 +14,18 @@ block content
                 a(href="/tasks")
                     img(src="/favicon.ico" class="fetchThisPendingImg")
         else
-            input(type='hidden', name='_csrf', value=csrfToken)
-            div
-                input(type="text"  id="name" placeholder="Add a Task..." class="addTaskName")
-            div
-                textarea(id='description' type='text' class='taskTextContainer' placeholder='Enter The Description of the Task')
-            div
-                select(class="taskListSelection" value=taskList[0].id id="list")
-                    each list in taskList
-                        option(value=list.id)=list.name
-            div
-             form(action=`/tasks` method="POST")
-                button(id='addButton' type='submit' class='addButton') Add
+            form(action=`/tasks` method="POST")
+                input(type='hidden', name='_csrf', value=csrfToken)
+                div
+                    input(type="text"  id="name" placeholder="Add a Task..." class="addTaskName")
+                div
+                    textarea(id='description' type='text' class='taskTextContainer' placeholder='Enter The Description of the Task')
+                div
+                    select(class="taskListSelection" value=taskList[0].id id="list")
+                        each list in taskList
+                            option(value=list.id)=list.name
+                div
+                    button(id='addButton' type='submit' class='addButton') Add
         each task in tasks
             div(class="tasksContainer")
                 div(class="tasksFlexContainer" id=task.id)
