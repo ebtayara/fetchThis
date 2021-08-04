@@ -24,6 +24,8 @@ html
           button(class='btn' type='submit') Task Summary
         form(action='/users/logout' method='post')
           button(class='btn' type='submit') Logout
+        form(action='/aboutUs' method='get')
+          button(class='btn' type='submit') Meet the Developers
         div(class='navSearchContainer')
           form(action='/search' method='get')
           input(type='text' placeholder="Search for tasks..." id="navBarJS" class="navSearchBar")
@@ -38,4 +40,6 @@ html
           button(class='btn' type='submit') Login
         form(action='/users/signUp' method='get')
           button(class='btn' type='submit') Sign Up
+        form(action='/aboutUs' method='get')
+          button(class='btn' type='submit') Meet the Developers
     block content
