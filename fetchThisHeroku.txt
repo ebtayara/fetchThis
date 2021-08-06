@@ -1,0 +1,19 @@
+
+Push to Heroku:
+
+git push heroku
+
+If you ever need to roll back, DO NOT DROP YOUR DATABASE! Instead, migrate down and up:
+
+heroku run npx sequelize-cli db:seed:undo:all
+heroku run npx sequelize-cli db:migrate:undo:all
+heroku run npx sequelize-cli db:migrate
+heroku run npx sequelize-cli db:seed:all
+
+If undoing the migrations and seeds don't work, you can reset the entire database by
+removing and adding the Heroku Postgres add-on that you added in the beginning of Step 2.
+Then migrate and seed again.
+
+
+Where all this info can be found:
+https://open.appacademy.io/learn/js-py---feb-2021-cohort-1-online/week-13-feb-2021-cohort-1-online/heroku-and-you
