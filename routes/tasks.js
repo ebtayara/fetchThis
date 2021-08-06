@@ -116,4 +116,30 @@ router.post(
   })
 );
 
+
+router.get(
+  '/:id(\\d+)', requireAuth,
+  asyncHandler(async (req, res, next) => {
+    const listId = parseInt(req.params.id, 10);
+    console.log(listId, 'LISTIDDDDDDD')
+
+
+    const task = await Task.findByPk(listId);
+    const singleList = await List.findAll({
+      where : { userId: req.session.auth.userId } ,
+      include:Task
+    });
+    console.log(task,'taskssssss 🙂')
+    console.log(singleList, 'listssssss')
+    res.render('list', { task, singleList })
+
+
+      if (singleList) {
+          res.render('list', { "lists":singleList });
+      } else {
+          next(listNotFoundError(listId));
+      }
+    }
+))
+
 module.exports = router;

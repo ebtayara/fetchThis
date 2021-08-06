@@ -4,7 +4,7 @@ const taskName = document.getElementById('name');
 const taskList = document.getElementById('list');
 const taskEditButtons = document.getElementsByClassName('editButton');
 const completeButton = document.getElementsByClassName('completeButton');
-const taskButton = document.getElementById('taskButton')
+const taskButton = document.querySelector('.listTaskShowButton')
 
 // console.log(description, "description 🎾")
 
@@ -90,7 +90,7 @@ taskButton.addEventListener('click', e => {
     // })
 
     let task = document.querySelector(".listTaskFlexContainer");
-    // console.log(task)
+    console.log(task)
 
     if (task.style.display === "none") {
         task.style.display = "flex";
