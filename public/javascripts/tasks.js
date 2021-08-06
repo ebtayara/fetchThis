@@ -78,19 +78,19 @@ if (addButton !== null) {
 
 taskButton.addEventListener('click', e => {
     // let allTasks = document.querySelectorAll(".listTaskFlexContainer");
-    // console.log(allTasks)
+    // // console.log(allTasks)
 
-    // for (let i = 0; i < allTasks.length; i++) {
-    //     let task = allTasks[i]
-    //     console.log(task)
+    // allTasks.forEach(task => {
+    //     // console.log(task)
     //     if (task.style.display === "none") {
     //         task.style.display = "flex";
     //     } else {
     //         task.style.display = "none";
     //     }
-    // }
+    // })
 
     let task = document.querySelector(".listTaskFlexContainer");
+    // console.log(task)
 
     if (task.style.display === "none") {
         task.style.display = "flex";
