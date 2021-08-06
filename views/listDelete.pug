@@ -2,14 +2,14 @@ extends layout.pug
 
 append head
   //- add page specific styles by appending to the head
-  link(rel="stylesheet" href="/stylesheets/index.css")
+  link(rel="stylesheet" href="/stylesheets/lists.css")
   //- add page specific js
   //- script(src="/javascripts/index.js" type="module" defer)
 
 block content
   body
-    div
-      p ARE YOU SURE YOU WANT TO DELETE THIS LIST???
+    div(class='deleteConfirmation')
+      p Are you sure you want to delete this list?
         form(action=`/lists/delete/${list.id}` method='post')
           input(type='hidden' name='_csrf' value=csrfToken)
           div

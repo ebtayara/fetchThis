@@ -46,3 +46,15 @@ body {
     margin: 10px 0;
     padding: 10px;
 }
+
+.addListButton {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.deleteConfirmation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
