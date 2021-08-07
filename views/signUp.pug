@@ -1,10 +1,10 @@
 extends layout.pug
 
 block content
-  if error
-    div(class='alert alert-danger' role='alert')
-      p The following error(s) occurred:
-      pre= JSON.stringify(error, null, 2)
+  if errors
+      ul(class='errorContainer')
+        each e,i in errors
+          li(class="error")= errors[i]
   div(class='signupContainer')
     form(action='/users/signUp' method='post')
       h1(class="signupHeader") Sign up for free!
