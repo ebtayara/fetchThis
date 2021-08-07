@@ -31,7 +31,7 @@ block content
                           //-  value = list.Tasks.task.id.completed = true
                           //- button( type='submit' class='completeButton' value = list.Tasks.task.id.completed = true ) Complete
                       //- a(href=`/tasks/${task.id}/completeTask`)
-                      //-     //- button(type='submit' class='completeButton') Complete
+                      //-     button(type='submit' class='completeButton') Complete
                       //-     form(action=`/tasks/${task.id}/completeTask` method='POST')
                       //-       button( type='submit' class='completeButton' value=task.completed ) Complete
       if lists
@@ -61,7 +61,7 @@ block content
                           //- button(type='submit' class='editButton') Edit
                           //-  value = list.Tasks.task.id.completed = true
                           //- button( type='submit' class='completeButton' value = list.Tasks.task.id.completed = true ) Complete
-                      //- a(href=`/tasks/${task.id}/completeTask`)
-                      //-     //- button(type='submit' class='completeButton') Complete
-                      //-     form(action=`/tasks/${task.id}/completeTask` method='POST')
-                      //-       button( type='submit' class='completeButton' value=task.completed ) Complete
+                      //- a(href=`/tasks/${task.id}/completeTask`) Complete
+                      //- button(type='submit' class='completeButton') Complete
+                      form(action=`/tasks/${task.id}/completeTask` method='POST')
+                        button( type='submit' class='completeButton' value=task.completed ) Complete

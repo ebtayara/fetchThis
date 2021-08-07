@@ -71,7 +71,7 @@ router.get(
   asyncHandler(async (req, res, next) => {
     const taskId = parseInt(req.params.id, 10);
     const task = await Task.findByPk(taskId);
-    console.log(taskId,'hi from EDIT FORM 🙂')
+    // console.log(taskId,'hi from EDIT FORM 🙂')
     res.render('list', { task })
   })
 )
@@ -80,7 +80,7 @@ router.post(
   '/:id(\\d+)/completeTask', requireAuth,
   asyncHandler(async (req, res, next) => {
     const taskId = parseInt(req.params.id, 10);
-    console.log('🎾taskId', taskId);
+    // console.log('🎾taskId', taskId);
     const task = await Task.findByPk(taskId);
 
     if (task) {
@@ -121,7 +121,7 @@ router.get(
   '/:id(\\d+)', requireAuth,
   asyncHandler(async (req, res, next) => {
     const listId = parseInt(req.params.id, 10);
-    console.log(listId, 'LISTIDDDDDDD')
+    // console.log(listId, 'LISTIDDDDDDD')
 
 
     const task = await Task.findByPk(listId);
@@ -129,8 +129,8 @@ router.get(
       where : { userId: req.session.auth.userId } ,
       include:Task
     });
-    console.log(task,'taskssssss 🙂')
-    console.log(singleList, 'listssssss')
+    // console.log(task,'taskssssss 🙂')
+    // console.log(singleList, 'listssssss')
     res.render('list', { task, singleList })
 
 

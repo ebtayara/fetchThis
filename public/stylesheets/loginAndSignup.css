@@ -10,6 +10,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .signupContainer {
@@ -32,7 +33,7 @@
   flex-direction: column;
   align-items: center;
   border: 0.5px solid grey;
-  background-color: #A7C957;
+  background-color: #a7c957;
   border-radius: 10px;
   width: 45%;
   margin: 10px;
@@ -42,7 +43,7 @@
 .loginContainer {
   margin-top: 10px;
   display: flex;
-  justify-content:center;
+  justify-content: center;
 }
 
 .signupOuterContainer {
@@ -55,7 +56,7 @@
   flex-direction: column;
   align-items: center;
   border: 0.5px solid grey;
-  background-color: #A7C957;
+  background-color: #a7c957;
   border-radius: 10px;
   width: 55%;
   margin: 10px;
@@ -72,5 +73,11 @@
 .submitButton {
   margin-top: 10px;
   display: flex;
-  justify-content:center;
+  justify-content: center;
+}
+.errorContainer {
+  list-style: none;
+}
+.error {
+  color: red;
 }

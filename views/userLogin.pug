@@ -16,3 +16,7 @@ block content
             input(type='password' name='hashedPassword')
           div(class="loginContainer")
             button(type='submit' class="loginButton" ) Login
+    if errors
+      ul(class='errorContainer')
+        each e,i in errors
+          li(class="error")= errors[i]
