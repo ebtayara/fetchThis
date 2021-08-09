@@ -1,0 +1,12 @@
+
+.editForm {
+    display: flex;
+    justify-content: center;
+    padding: 10%;
+}
+
+.editFormLabel {
+    margin-right: 5px;
+    justify-content: space-between;
+    margin-left: 25px;
+}

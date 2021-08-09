@@ -2,6 +2,7 @@ extends layout.pug
 
 append head
   link(rel="stylesheet" href="/stylesheets/lists.css")
+  link(rel="stylesheet" href="/stylesheets/editForm.css")
   script(src="/javascripts/tasks.js" type="module" defer)
 
 block content
@@ -55,6 +56,7 @@ block content
                           h3=task.name
                           if task.description
                               p=task.description
+                      a(href=`/tasks/${task.id}/edit`) Edit
                       a(href=`/tasks/${task.id}/delete`) Remove
                           //- button(type='submit' class='removeButton') Remove
                       a(href=`/tasks/${task.id}`)
