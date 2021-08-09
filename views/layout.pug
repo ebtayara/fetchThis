@@ -22,14 +22,14 @@ html
           button(class='btn' type='submit') Your Lists
         form(action='/summary' method='get')
           button(class='btn' type='submit') Task Summary
-        form(action='/users/logout' method='post')
-          button(class='btn' type='submit') Logout
-        form(action='/aboutUs' method='get')
-          button(class='btn' type='submit') Meet the Developers
         div(class='navSearchContainer')
           form(action='/search' method='get')
           input(type='text' placeholder="Search for tasks..." id="navBarJS" class="navSearchBar")
           button(type='submit' id='navBarSearchButton' class='navSearchBar') Fetch!
+        form(action='/aboutUs' method='get')
+          button(class='btn' type='submit') Meet the Developers
+        form(action='/users/logout' method='post')
+          button(class='btn' type='submit') Logout
       else
         span(class='homepageNav')
         form(action='/users/demoTyrion' method='post')
