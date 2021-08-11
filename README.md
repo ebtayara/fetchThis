@@ -20,7 +20,7 @@ Schema of the PostgresQL database
 
 API routes that return JSON and that will be used by the frontend routes for accessing the database from the backend
 
-## [**Frontend Routes**](https://github.com/appacademy-starters/express-project-planning-example/wiki/frontend-routes)
+## [**Frontend Routes**](https://github.com/ebtayara/fetchThis/wiki/Frontend-Routes)
 
 Routes that return an HTML page that the user can interact with
 
