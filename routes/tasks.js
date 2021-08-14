@@ -59,7 +59,7 @@ router.post(
       // await task.update({ name });
        await task.update({  name:name, description:description
   ,userId: res.locals.user.id, completed: false  });
-      res.redirect('/tasks')
+      res.redirect('/lists')
     } else {
       next(listNotFoundError(taskId));
     }
@@ -109,7 +109,7 @@ router.post(
 
     if (task) {
       await task.destroy();
-      res.redirect('/tasks')
+      res.redirect('/lists')
     } else {
       next(taskNotFoundError(taskId));
     }
