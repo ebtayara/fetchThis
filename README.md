@@ -5,7 +5,6 @@
 ![Screen Shot 2021-08-15 at 10 17 24 PM](https://user-images.githubusercontent.com/69067446/129502782-a1ea28be-c455-4b21-933c-b8ab48483bc0.png)
 #
 
-
 ### Built With
 The project was built utilizing the following technologies:
 * [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
