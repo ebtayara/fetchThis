@@ -15,7 +15,6 @@ The project was built utilizing the following technologies:
 * [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
 #
 
-
 ## Getting started
 
 1. Clone this repository
